@@ -1,6 +1,6 @@
 ﻿namespace Simulator
 {
-    partial class Form1
+    partial class Simulator
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // Simulator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(383, 433);
-            this.Name = "Form1";
-            this.Text = "Simulator";
+            this.Name = "Simulator";
+            this.Text = "SSSS";
             this.ResumeLayout(false);
 
         }
