@@ -15,7 +15,6 @@ namespace Simulator
         public Simulator()
         {
             InitializeComponent();
-            Console.WriteLine("DS");
         }
     }
 }
