@@ -36,7 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 449);
             this.Name = "Simulator";
-            this.Text = "faedf";
+            this.Text = "Simulator";
             this.ResumeLayout(false);
 
         }
