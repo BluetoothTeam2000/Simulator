@@ -59,7 +59,7 @@
             this.Controls.Add(this.button1);
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Simulator";
-            this.Text = "Simulator";
+            this.Text = "Simulator2000";
             this.ResumeLayout(false);
 
         }
