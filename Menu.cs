@@ -26,7 +26,7 @@ namespace Simulator
 
         private void buttonEXIT_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            Application.Exit();
         }
     }
 }
