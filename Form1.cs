@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Simulator
 {
-    public partial class Simulator : Form
+    public partial class Sim : Form
     {
-        public Simulator()
+        public Sim()
         {
             InitializeComponent();
         }
@@ -53,17 +53,17 @@ namespace Simulator
 
             if (checkNATB.Checked == true)
             {
-                labelResult.Text = random.Next(0, 5).ToString() + "I";
+                labelResult.Text = random.Next(0, 5).ToString() + "A";
             }
 
             if (checkNATSOL.Checked == true)
             {
-                labelResult.Text = random.Next(0, 30).ToString() + "I";
+                labelResult.Text = random.Next(0, 30).ToString() + "A";
             }
 
             if (checkNATW.Checked == true)
             {
-                labelResult.Text = random.Next(0, 15).ToString() + "I";
+                labelResult.Text = random.Next(0, 15).ToString() + "A";
             }
         }
 

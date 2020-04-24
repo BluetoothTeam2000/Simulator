@@ -1,6 +1,6 @@
 ﻿namespace Simulator
 {
-    partial class Simulator
+    partial class Sim
     {
         /// <summary>
         /// Required designer variable.
@@ -30,10 +30,8 @@
         {
             this.buttonSYM = new System.Windows.Forms.Button();
             this.labelResult = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.checkTemp = new System.Windows.Forms.CheckBox();
@@ -68,15 +66,6 @@
             this.labelResult.Size = new System.Drawing.Size(240, 45);
             this.labelResult.TabIndex = 2;
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(15, 83);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(172, 292);
-            this.listBox1.TabIndex = 4;
-            // 
             // label2
             // 
             this.label2.BackColor = System.Drawing.SystemColors.Info;
@@ -99,18 +88,6 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "Interval for generating new values:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(15, 12);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(172, 57);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "History";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
@@ -237,7 +214,7 @@
             this.buttonBack.UseVisualStyleBackColor = true;
             this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
             // 
-            // Simulator
+            // Sim
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -254,14 +231,12 @@
             this.Controls.Add(this.checkTemp);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.labelResult);
             this.Controls.Add(this.buttonSYM);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Simulator";
+            this.Name = "Sim";
             this.Text = "Simulator2000";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -272,10 +247,8 @@
 
         private System.Windows.Forms.Button buttonSYM;
         private System.Windows.Forms.Label labelResult;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkTemp;
