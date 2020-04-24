@@ -21,47 +21,47 @@ namespace Simulator
         {
             Random random = new Random();
 
-            if(checkTemp.Checked == true)
+            if(checkTemp.Checked)
             {
                 labelResult.Text = random.Next(-20, 70).ToString() + "°C";
             }
 
-            if(checkWilg.Checked == true)
+            if(checkWilg.Checked)
             {
                 labelResult.Text = random.Next(0, 100).ToString() + "%";
             }
 
-            if(checkCis.Checked == true)
+            if(checkCis.Checked)
             {
                 labelResult.Text = random.Next(0, 100000).ToString() + "Pa";
             }
 
-            if(checkNAPB.Checked == true)
+            if(checkNAPB.Checked)
             {
                 labelResult.Text = random.Next(0, 10).ToString() + "V";
             }
 
-            if (checkNAPSOL.Checked == true)
+            if (checkNAPSOL.Checked)
             {
                 labelResult.Text = random.Next(0, 100).ToString() + "V";
             }
 
-            if (checkNAPW.Checked == true)
+            if (checkNAPW.Checked)
             {
                 labelResult.Text = random.Next(0, 50).ToString() + "V";
             }
 
-            if (checkNATB.Checked == true)
+            if (checkNATB.Checked)
             {
                 labelResult.Text = random.Next(0, 5).ToString() + "A";
             }
 
-            if (checkNATSOL.Checked == true)
+            if (checkNATSOL.Checked)
             {
                 labelResult.Text = random.Next(0, 30).ToString() + "A";
             }
 
-            if (checkNATW.Checked == true)
+            if (checkNATW.Checked)
             {
                 labelResult.Text = random.Next(0, 15).ToString() + "A";
             }
