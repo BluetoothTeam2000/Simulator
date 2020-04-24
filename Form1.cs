@@ -19,51 +19,51 @@ namespace Simulator
 
         private void buttonSYM_Click(object sender, EventArgs e)
         {
-            Random random = new Random();
+            listViewResult.Columns.Clear();
 
             if(checkTemp.Checked == true)
             {
-                labelResult.Text = random.Next(-20, 70).ToString() + "°C";
+                listViewResult.Columns.Add("Temperature");
             }
 
             if(checkWilg.Checked == true)
             {
-                labelResult.Text = random.Next(0, 100).ToString() + "%";
+                listViewResult.Columns.Add("Humidity");
             }
 
             if(checkCis.Checked == true)
             {
-                labelResult.Text = random.Next(0, 100000).ToString() + "Pa";
+                listViewResult.Columns.Add("Pressure");
             }
 
             if(checkNAPB.Checked == true)
             {
-                labelResult.Text = random.Next(0, 10).ToString() + "V";
+                listViewResult.Columns.Add("Battery Voltage");
             }
 
             if (checkNAPSOL.Checked == true)
             {
-                labelResult.Text = random.Next(0, 100).ToString() + "V";
+                listViewResult.Columns.Add("Solar Panel Voltage");
             }
 
             if (checkNAPW.Checked == true)
             {
-                labelResult.Text = random.Next(0, 50).ToString() + "V";
+                listViewResult.Columns.Add("Node Voltage");
             }
 
             if (checkNATB.Checked == true)
             {
-                labelResult.Text = random.Next(0, 5).ToString() + "A";
+                listViewResult.Columns.Add("Battery Current");
             }
 
             if (checkNATSOL.Checked == true)
             {
-                labelResult.Text = random.Next(0, 30).ToString() + "A";
+                listViewResult.Columns.Add("Solar Panel Current");
             }
 
             if (checkNATW.Checked == true)
             {
-                labelResult.Text = random.Next(0, 15).ToString() + "A";
+                listViewResult.Columns.Add("Node Current");
             }
         }
 
