@@ -22,12 +22,11 @@ namespace Simulator
             Simulator openSimulator = new Simulator();
             openSimulator.Show();
             Hide();
-            
         }
 
         private void buttonEXIT_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Environment.Exit(0);
         }
     }
 }
