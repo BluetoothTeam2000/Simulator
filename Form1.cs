@@ -16,5 +16,62 @@ namespace Simulator
         {
             InitializeComponent();
         }
+
+        private void buttonSYM_Click(object sender, EventArgs e)
+        {
+            Random random = new Random();
+
+            if(checkTemp.Checked == true)
+            {
+                labelResult.Text = random.Next(-20, 70).ToString() + "°C";
+            }
+
+            if(checkWilg.Checked == true)
+            {
+                labelResult.Text = random.Next(0, 100).ToString() + "%";
+            }
+
+            if(checkCis.Checked == true)
+            {
+                labelResult.Text = random.Next(0, 100000).ToString() + "Pa";
+            }
+
+            if(checkNAPB.Checked == true)
+            {
+                labelResult.Text = random.Next(0, 10).ToString() + "V";
+            }
+
+            if (checkNAPSOL.Checked == true)
+            {
+                labelResult.Text = random.Next(0, 100).ToString() + "V";
+            }
+
+            if (checkNAPW.Checked == true)
+            {
+                labelResult.Text = random.Next(0, 50).ToString() + "V";
+            }
+
+            if (checkNATB.Checked == true)
+            {
+                labelResult.Text = random.Next(0, 5).ToString() + "I";
+            }
+
+            if (checkNATSOL.Checked == true)
+            {
+                labelResult.Text = random.Next(0, 30).ToString() + "I";
+            }
+
+            if (checkNATW.Checked == true)
+            {
+                labelResult.Text = random.Next(0, 15).ToString() + "I";
+            }
+        }
+
+        private void buttonBack_Click(object sender, EventArgs e)
+        {
+            Menu openMenu = new Menu();
+            openMenu.Show();
+            this.Close();
+        }
     }
 }
