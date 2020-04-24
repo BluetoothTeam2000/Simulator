@@ -22,7 +22,6 @@ namespace Simulator
             Sim openSimulator = new Sim();
             openSimulator.Show();
             Hide();
-            
         }
 
         private void buttonEXIT_Click(object sender, EventArgs e)
