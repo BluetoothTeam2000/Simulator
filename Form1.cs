@@ -53,8 +53,8 @@ namespace Simulator
 
             if (checkTemp.Checked)
             {
-                listViewTemp.Columns.Add("Timestamp");
-                listViewTemp.Columns.Add("Temperature", 100);
+                listViewTemp.Columns.Add("Timestamp", 110);
+                listViewTemp.Columns.Add("Temperature", 75);
                 temperature = Math.Round(randomDouble(-30, 50), 3);
                 item.SubItems.Add(temperature.ToString() + " °C");
                 timerTemp.Interval = int.Parse(comboBoxTemp.Text) * 1000;
@@ -64,8 +64,8 @@ namespace Simulator
 
             if (checkWilg.Checked)
             {
-                listViewHum.Columns.Add("Timestamp");
-                listViewHum.Columns.Add("Humidity", 100);
+                listViewHum.Columns.Add("Timestamp", 110);
+                listViewHum.Columns.Add("Humidity", 70);
                 humidity = Math.Round(randomDouble(0, 100), 3);
                 item.SubItems.Add(humidity.ToString() + "%");
                 timerHum.Interval = int.Parse(comboBoxHum.Text) * 1000;
@@ -75,8 +75,8 @@ namespace Simulator
 
             if (checkCis.Checked)
             {
-                listViewPress.Columns.Add("Timestamp");
-                listViewPress.Columns.Add("Pressure", 100);
+                listViewPress.Columns.Add("Timestamp", 110);
+                listViewPress.Columns.Add("Pressure", 80);
                 pressure = Math.Round(randomDouble(980, 1020), 3);
                 item.SubItems.Add(pressure.ToString() + " hPa");
                 timerPress.Interval = int.Parse(comboBoxPress.Text) * 1000;
@@ -86,47 +86,47 @@ namespace Simulator
 
             if (checkNAPB.Checked || checkNAPSOL.Checked || checkNAPW.Checked || checkNATB.Checked || checkNATSOL.Checked || checkNATW.Checked)
             {
-                listViewEnergy.Columns.Add("Timestamp");
+                listViewEnergy.Columns.Add("Timestamp", 110);
             }
 
             if (checkNAPB.Checked)
             {
-                listViewEnergy.Columns.Add("Battery Voltage", 100);
+                listViewEnergy.Columns.Add("Battery Voltage", 85);
                 battery_voltage = Math.Round(randomDouble(2.5, 4.8), 3);
                 item.SubItems.Add(battery_voltage.ToString() + " V");
             }
 
             if (checkNAPSOL.Checked)
             {
-                listViewEnergy.Columns.Add("Solar Panel Voltage", 100);
+                listViewEnergy.Columns.Add("Solar Panel Voltage", 110);
                 solar_panel_voltage = Math.Round(randomDouble(50.1, 60.3), 3);
                 item.SubItems.Add(solar_panel_voltage.ToString() + " V");
             }
 
             if (checkNAPW.Checked)
             {
-                listViewEnergy.Columns.Add("Node Voltage", 100);
+                listViewEnergy.Columns.Add("Node Voltage", 80);
                 node_voltage = Math.Round(randomDouble(28.4, 32.6), 3);
                 item.SubItems.Add(node_voltage.ToString() + " V");
             }
 
             if (checkNATB.Checked)
             {
-                listViewEnergy.Columns.Add("Battery Current", 100);
+                listViewEnergy.Columns.Add("Battery Current", 85);
                 battery_current = Math.Round(randomDouble(6.2, 9.8), 3);
                 item.SubItems.Add(battery_current.ToString() + " A");
             }
 
             if (checkNATSOL.Checked)
             {
-                listViewEnergy.Columns.Add("Solar Panel Current", 100);
+                listViewEnergy.Columns.Add("Solar Panel Current", 105);
                 solar_panel_current = Math.Round(randomDouble(10.7, 15.9), 3);
                 item.SubItems.Add(solar_panel_current.ToString() + " A");
             }
 
             if (checkNATW.Checked)
             {
-                listViewEnergy.Columns.Add("Node Current", 100);
+                listViewEnergy.Columns.Add("Node Current", 75);
                 node_current = Math.Round(randomDouble(8.5, 12.8), 3);
                 item.SubItems.Add(node_current.ToString() + " A");
             }
