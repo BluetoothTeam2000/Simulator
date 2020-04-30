@@ -221,6 +221,7 @@
             this.Controls.Add(this.checkTemp);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.buttonStart);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Simulator";
             this.Text = "Simulator2000";
             this.ResumeLayout(false);
