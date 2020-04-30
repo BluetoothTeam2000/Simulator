@@ -1,2 +1,2 @@
-# Simulator węzła
-Symulator węzła
+# Symulator węzła
+Symulator dla węzła rzecznego bardzo niebezpiecznego.
