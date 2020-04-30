@@ -24,9 +24,9 @@ namespace Simulator
         private void buttonStart_Click(object sender, EventArgs e)
         {
             Random random = new Random();
-            listViewResult.Columns.Clear();
-            listViewResult.Items.Clear();
-            listViewResult.Columns.Add("ID");
+            listViewTemp.Columns.Clear();
+            listViewTemp.Items.Clear();
+            listViewTemp.Columns.Add("ID");
             ListViewItem item = new ListViewItem(id.ToString());
 
             buttonStart.Enabled = false;
@@ -40,68 +40,68 @@ namespace Simulator
 
             if (checkTemp.Checked)
             {
-                listViewResult.Columns.Add("Temperature", 100);
+                listViewTemp.Columns.Add("Temperature", 100);
                 temperature = Math.Round(randomDouble(-30, 50), 3);
                 item.SubItems.Add(temperature.ToString() + " °C");
             }
 
             if(checkWilg.Checked)
             {
-                listViewResult.Columns.Add("Humidity", 100);
+                listViewTemp.Columns.Add("Humidity", 100);
                 humidity = Math.Round(randomDouble(0, 100));
                 item.SubItems.Add(humidity.ToString() + "%");
             }
 
             if(checkCis.Checked)
             {
-                listViewResult.Columns.Add("Pressure", 100);
+                listViewTemp.Columns.Add("Pressure", 100);
                 pressure = Math.Round(randomDouble(980, 1020));
                 item.SubItems.Add(pressure.ToString() + " hPa");
             }
 
             if(checkNAPB.Checked)
             {
-                listViewResult.Columns.Add("Battery Voltage", 100);
+                listViewTemp.Columns.Add("Battery Voltage", 100);
                 battery_voltage = Math.Round(randomDouble(2.5, 4.8));
                 item.SubItems.Add(battery_voltage.ToString() + " V");
             }
 
             if (checkNAPSOL.Checked)
             {
-                listViewResult.Columns.Add("Solar Panel Voltage", 100);
+                listViewTemp.Columns.Add("Solar Panel Voltage", 100);
                 solar_panel_voltage = Math.Round(randomDouble(28, 32));
                 item.SubItems.Add(solar_panel_voltage.ToString() + " V");
             }
 
             if (checkNAPW.Checked)
             {
-                listViewResult.Columns.Add("Node Voltage", 100);
+                listViewTemp.Columns.Add("Node Voltage", 100);
                 node_voltage = Math.Round(randomDouble(28, 32));
                 item.SubItems.Add(node_voltage.ToString() + " V");
             }
 
             if (checkNATB.Checked)
             {
-                listViewResult.Columns.Add("Battery Current", 100);
+                listViewTemp.Columns.Add("Battery Current", 100);
                 battery_current = Math.Round(randomDouble(6.0, 9.0));
                 item.SubItems.Add(battery_current.ToString() + " A");
             }
 
             if (checkNATSOL.Checked)
             {
-                listViewResult.Columns.Add("Solar Panel Current", 100);
+                listViewTemp.Columns.Add("Solar Panel Current", 100);
                 solar_panel_current = Math.Round(randomDouble(6, 9));
                 item.SubItems.Add(solar_panel_current.ToString() + " A");
             }
 
             if (checkNATW.Checked)
             {
-                listViewResult.Columns.Add("Node Current", 100);
+                listViewTemp.Columns.Add("Node Current", 100);
                 node_current = Math.Round(randomDouble(6, 9));
                 item.SubItems.Add(node_current.ToString() + " A");
             }
             
-            listViewResult.Items.Insert(0, item);
+            listViewTemp.Items.Insert(0, item);
             timer.Interval = 5000;
             timer.Tick += new EventHandler(this.t_Tick);
             timer.Start();
@@ -229,7 +229,7 @@ namespace Simulator
                 node_current = temporary;
                 item.SubItems.Add(node_current.ToString() + " A");
             }
-            listViewResult.Items.Insert(0, item);
+            listViewTemp.Items.Insert(0, item);
         }
 
         private double randomDouble(double min, double max)
