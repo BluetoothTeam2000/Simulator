@@ -204,7 +204,7 @@
             this.listViewTemp.HideSelection = false;
             this.listViewTemp.Location = new System.Drawing.Point(12, 248);
             this.listViewTemp.Name = "listViewTemp";
-            this.listViewTemp.Size = new System.Drawing.Size(140, 90);
+            this.listViewTemp.Size = new System.Drawing.Size(143, 90);
             this.listViewTemp.TabIndex = 26;
             this.listViewTemp.UseCompatibleStateImageBehavior = false;
             this.listViewTemp.View = System.Windows.Forms.View.Details;
@@ -212,9 +212,9 @@
             // listViewHum
             // 
             this.listViewHum.HideSelection = false;
-            this.listViewHum.Location = new System.Drawing.Point(167, 248);
+            this.listViewHum.Location = new System.Drawing.Point(161, 248);
             this.listViewHum.Name = "listViewHum";
-            this.listViewHum.Size = new System.Drawing.Size(140, 90);
+            this.listViewHum.Size = new System.Drawing.Size(143, 90);
             this.listViewHum.TabIndex = 27;
             this.listViewHum.UseCompatibleStateImageBehavior = false;
             this.listViewHum.View = System.Windows.Forms.View.Details;
@@ -222,9 +222,9 @@
             // listViewPress
             // 
             this.listViewPress.HideSelection = false;
-            this.listViewPress.Location = new System.Drawing.Point(322, 248);
+            this.listViewPress.Location = new System.Drawing.Point(310, 248);
             this.listViewPress.Name = "listViewPress";
-            this.listViewPress.Size = new System.Drawing.Size(140, 90);
+            this.listViewPress.Size = new System.Drawing.Size(143, 90);
             this.listViewPress.TabIndex = 28;
             this.listViewPress.UseCompatibleStateImageBehavior = false;
             this.listViewPress.View = System.Windows.Forms.View.Details;
@@ -234,7 +234,7 @@
             this.listViewEnergy.HideSelection = false;
             this.listViewEnergy.Location = new System.Drawing.Point(11, 372);
             this.listViewEnergy.Name = "listViewEnergy";
-            this.listViewEnergy.Size = new System.Drawing.Size(440, 84);
+            this.listViewEnergy.Size = new System.Drawing.Size(442, 84);
             this.listViewEnergy.TabIndex = 29;
             this.listViewEnergy.UseCompatibleStateImageBehavior = false;
             this.listViewEnergy.View = System.Windows.Forms.View.Details;
