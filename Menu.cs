@@ -19,7 +19,7 @@ namespace Simulator
 
         private void buttonSTART_Click(object sender, EventArgs e)
         {
-            Sim openSimulator = new Sim();
+            Simulator openSimulator = new Simulator();
             openSimulator.Show();
             Hide();
         }
