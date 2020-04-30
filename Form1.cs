@@ -116,7 +116,6 @@ namespace Simulator
                 if (c is CheckBox)
                     c.Enabled = true;
             }
-
             buttonStart.Enabled = true;
         }
 
