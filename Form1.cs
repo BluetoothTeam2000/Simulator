@@ -12,27 +12,40 @@ namespace Simulator
 {
     public partial class Simulator : Form
     {
-        Timer timer = new Timer();
-        int id = 1;
+        Timer timerTemp = new Timer();
+        Timer timerHum = new Timer();
+        Timer timerPress = new Timer();
+        Timer timerEnergy = new Timer();
+
         double temperature, humidity, pressure, battery_voltage, solar_panel_voltage, node_voltage, battery_current, solar_panel_current, node_current;
 
         public Simulator()
         {
             InitializeComponent();
+            comboBoxTemp.SelectedIndex = 0;
+            comboBoxHum.SelectedIndex = 0;
+            comboBoxPress.SelectedIndex = 0;
+            comboBoxEnergy.SelectedIndex = 0;
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
             Random random = new Random();
-            listViewTemp.Columns.Clear();
+            ListViewItem item = new ListViewItem(DateTime.Now.ToString());
             listViewTemp.Items.Clear();
-            listViewTemp.Columns.Add("ID");
-            ListViewItem item = new ListViewItem(id.ToString());
+            listViewHum.Items.Clear();
+            listViewPress.Items.Clear();
+            listViewEnergy.Items.Clear();
+
+            listViewTemp.Columns.Clear();
+            listViewHum.Columns.Clear();
+            listViewPress.Columns.Clear();
+            listViewEnergy.Columns.Clear();
 
             buttonStart.Enabled = false;
             foreach (Control c in Controls)
             {
-                if(c is CheckBox)
+                if (c is CheckBox || c is ComboBox)
                 {
                     c.Enabled = false;
                 }
@@ -40,80 +53,107 @@ namespace Simulator
 
             if (checkTemp.Checked)
             {
+                listViewTemp.Columns.Add("Timestamp");
                 listViewTemp.Columns.Add("Temperature", 100);
                 temperature = Math.Round(randomDouble(-30, 50), 3);
                 item.SubItems.Add(temperature.ToString() + " °C");
+                timerTemp.Interval = int.Parse(comboBoxTemp.Text) * 1000;
+                timerTemp.Tick += new EventHandler(tempTick);
+                timerTemp.Start();
             }
 
-            if(checkWilg.Checked)
+            if (checkWilg.Checked)
             {
-                listViewTemp.Columns.Add("Humidity", 100);
-                humidity = Math.Round(randomDouble(0, 100));
+                listViewHum.Columns.Add("Timestamp");
+                listViewHum.Columns.Add("Humidity", 100);
+                humidity = Math.Round(randomDouble(0, 100), 3);
                 item.SubItems.Add(humidity.ToString() + "%");
+                timerHum.Interval = int.Parse(comboBoxHum.Text) * 1000;
+                timerHum.Tick += new EventHandler(humTick);
+                timerHum.Start();
             }
 
-            if(checkCis.Checked)
+            if (checkCis.Checked)
             {
-                listViewTemp.Columns.Add("Pressure", 100);
-                pressure = Math.Round(randomDouble(980, 1020));
+                listViewPress.Columns.Add("Timestamp");
+                listViewPress.Columns.Add("Pressure", 100);
+                pressure = Math.Round(randomDouble(980, 1020), 3);
                 item.SubItems.Add(pressure.ToString() + " hPa");
+                timerPress.Interval = int.Parse(comboBoxPress.Text) * 1000;
+                timerPress.Tick += new EventHandler(pressTick);
+                timerPress.Start();
             }
 
-            if(checkNAPB.Checked)
+            if (checkNAPB.Checked || checkNAPSOL.Checked || checkNAPW.Checked || checkNATB.Checked || checkNATSOL.Checked || checkNATW.Checked)
             {
-                listViewTemp.Columns.Add("Battery Voltage", 100);
-                battery_voltage = Math.Round(randomDouble(2.5, 4.8));
+                listViewEnergy.Columns.Add("Timestamp");
+            }
+
+            if (checkNAPB.Checked)
+            {
+                listViewEnergy.Columns.Add("Battery Voltage", 100);
+                battery_voltage = Math.Round(randomDouble(2.5, 4.8), 3);
                 item.SubItems.Add(battery_voltage.ToString() + " V");
             }
 
             if (checkNAPSOL.Checked)
             {
-                listViewTemp.Columns.Add("Solar Panel Voltage", 100);
-                solar_panel_voltage = Math.Round(randomDouble(28, 32));
+                listViewEnergy.Columns.Add("Solar Panel Voltage", 100);
+                solar_panel_voltage = Math.Round(randomDouble(50.1, 60.3), 3);
                 item.SubItems.Add(solar_panel_voltage.ToString() + " V");
             }
 
             if (checkNAPW.Checked)
             {
-                listViewTemp.Columns.Add("Node Voltage", 100);
-                node_voltage = Math.Round(randomDouble(28, 32));
+                listViewEnergy.Columns.Add("Node Voltage", 100);
+                node_voltage = Math.Round(randomDouble(28.4, 32.6), 3);
                 item.SubItems.Add(node_voltage.ToString() + " V");
             }
 
             if (checkNATB.Checked)
             {
-                listViewTemp.Columns.Add("Battery Current", 100);
-                battery_current = Math.Round(randomDouble(6.0, 9.0));
+                listViewEnergy.Columns.Add("Battery Current", 100);
+                battery_current = Math.Round(randomDouble(6.2, 9.8), 3);
                 item.SubItems.Add(battery_current.ToString() + " A");
             }
 
             if (checkNATSOL.Checked)
             {
-                listViewTemp.Columns.Add("Solar Panel Current", 100);
-                solar_panel_current = Math.Round(randomDouble(6, 9));
+                listViewEnergy.Columns.Add("Solar Panel Current", 100);
+                solar_panel_current = Math.Round(randomDouble(10.7, 15.9), 3);
                 item.SubItems.Add(solar_panel_current.ToString() + " A");
             }
 
             if (checkNATW.Checked)
             {
-                listViewTemp.Columns.Add("Node Current", 100);
-                node_current = Math.Round(randomDouble(6, 9));
+                listViewEnergy.Columns.Add("Node Current", 100);
+                node_current = Math.Round(randomDouble(8.5, 12.8), 3);
                 item.SubItems.Add(node_current.ToString() + " A");
             }
-            
-            listViewTemp.Items.Insert(0, item);
-            timer.Interval = 5000;
-            timer.Tick += new EventHandler(this.t_Tick);
-            timer.Start();
+
+            if (checkNAPB.Checked || checkNAPSOL.Checked || checkNAPW.Checked || checkNATB.Checked || checkNATSOL.Checked || checkNATW.Checked)
+            {
+                timerEnergy.Interval = int.Parse(comboBoxEnergy.Text) * 1000;
+                timerEnergy.Tick += new EventHandler(energyTick);
+                timerEnergy.Start();
+            }
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
-            timer.Stop();
-            id = 1;
+            timerTemp.Stop();
+            timerHum.Stop();
+            timerPress.Stop();
+            timerEnergy.Stop();
+
+            timerTemp.Tick -= new EventHandler(tempTick);
+            timerHum.Tick -= new EventHandler(humTick);
+            timerPress.Tick -= new EventHandler(pressTick);
+            timerEnergy.Tick -= new EventHandler(energyTick);
+
             foreach (Control c in Controls)
             {
-                if (c is CheckBox)
+                if (c is CheckBox || c is ComboBox)
                     c.Enabled = true;
             }
             buttonStart.Enabled = true;
@@ -126,43 +166,51 @@ namespace Simulator
             Close();
         }
 
-        private void t_Tick(object sender, EventArgs e)
+        private void tempTick(object sender, EventArgs e)
         {
-            id++;
-            ListViewItem item = new ListViewItem(id.ToString());
+            ListViewItem item = new ListViewItem(DateTime.Now.ToString());
 
-            if (checkTemp.Checked)
+            double temporary = temperature + Math.Round(randomDouble(-1, 1), 3);
+            while (temporary < -30 || temporary > 50)
             {
-                double temporary = temperature + Math.Round(randomDouble(-1, 1), 3);
-                while (temporary < -30 || temporary > 50)
-                {
-                    temporary = temperature + Math.Round(randomDouble(-1, 1), 3);
-                }
-                temperature = temporary;
-                item.SubItems.Add(temperature.ToString() + " °C");
+                temporary = temperature + Math.Round(randomDouble(-1, 1), 3);
             }
+            temperature = temporary;
+            item.SubItems.Add(temperature.ToString() + " °C");
+            listViewTemp.Items.Insert(0, item);
+        }
 
-            if (checkWilg.Checked)
-            {
-                double temporary = humidity + Math.Round(randomDouble(-1, 1), 3);
-                while (temporary < 0 || temporary > 100)
-                {
-                    temporary = humidity + Math.Round(randomDouble(-1, 1), 3);
-                }
-                humidity = temporary;
-                item.SubItems.Add(humidity.ToString() + "%");
-            }
+        private void humTick(object sender, EventArgs e)
+        {
+            ListViewItem item = new ListViewItem(DateTime.Now.ToString());
 
-            if (checkCis.Checked)
+            double temporary = humidity + Math.Round(randomDouble(-1, 1), 3);
+            while (temporary < 0 || temporary > 100)
             {
-                double temporary = pressure + Math.Round(randomDouble(-1, 1), 3);
-                while (temporary < 980 || temporary > 1020)
-                {
-                    temporary = pressure + Math.Round(randomDouble(-1, 1), 3);
-                }
-                pressure = temporary;
-                item.SubItems.Add(pressure.ToString() + " hPa");
+                temporary = humidity + Math.Round(randomDouble(-1, 1), 3);
             }
+            humidity = temporary;
+            item.SubItems.Add(humidity.ToString() + "%");
+            listViewHum.Items.Insert(0, item);
+        }
+
+        private void pressTick(object sender, EventArgs e)
+        {
+            ListViewItem item = new ListViewItem(DateTime.Now.ToString());
+         
+            double temporary = pressure + Math.Round(randomDouble(-1, 1), 3);
+            while (temporary < 980 || temporary > 1020)
+            {
+                temporary = pressure + Math.Round(randomDouble(-1, 1), 3);
+            }
+            pressure = temporary;
+            item.SubItems.Add(pressure.ToString() + " hPa");
+            listViewPress.Items.Insert(0, item);
+        }
+
+        private void energyTick(object sender, EventArgs e)
+        {
+            ListViewItem item = new ListViewItem(DateTime.Now.ToString());
 
             if (checkNAPB.Checked)
             {
@@ -178,7 +226,7 @@ namespace Simulator
             if (checkNAPSOL.Checked)
             {
                 double temporary = solar_panel_voltage + Math.Round(randomDouble(-0.5, 0.5), 3);
-                while (temporary < 28 || temporary > 32)
+                while (temporary < 50.1 || temporary > 60.3)
                 {
                     temporary = solar_panel_voltage + Math.Round(randomDouble(-0.5, 0.5), 3);
                 }
@@ -189,7 +237,7 @@ namespace Simulator
             if (checkNAPW.Checked)
             {
                 double temporary = node_voltage + Math.Round(randomDouble(-0.5, 0.5), 3);
-                while (temporary < 28 || temporary > 32)
+                while (temporary < 28.4 || temporary > 32.6)
                 {
                     temporary = node_voltage + Math.Round(randomDouble(-0.5, 0.5), 3);
                 }
@@ -200,7 +248,7 @@ namespace Simulator
             if (checkNATB.Checked)
             {
                 double temporary = battery_current + Math.Round(randomDouble(-0.1, 0.1), 3);
-                while (temporary < 6 || temporary > 9)
+                while (temporary < 6.2 || temporary > 9.8)
                 {
                     temporary = battery_current + Math.Round(randomDouble(-0.1, 0.1), 3);
                 }
@@ -211,7 +259,7 @@ namespace Simulator
             if (checkNATSOL.Checked)
             {
                 double temporary = solar_panel_current + Math.Round(randomDouble(-0.1, 0.1), 3);
-                while (temporary < 6 || temporary > 9)
+                while (temporary < 10.7 || temporary > 15.9)
                 {
                     temporary = solar_panel_current + Math.Round(randomDouble(-0.1, 0.1), 3);
                 }
@@ -222,14 +270,14 @@ namespace Simulator
             if (checkNATW.Checked)
             {
                 double temporary = node_current + Math.Round(randomDouble(-0.1, 0.1), 3);
-                while (temporary < 6 || temporary > 9)
+                while (temporary < 8.5 || temporary > 12.8)
                 {
                     temporary = node_current + Math.Round(randomDouble(-0.1, 0.1), 3);
                 }
                 node_current = temporary;
                 item.SubItems.Add(node_current.ToString() + " A");
             }
-            listViewTemp.Items.Insert(0, item);
+            listViewEnergy.Items.Insert(0, item);
         }
 
         private double randomDouble(double min, double max)
