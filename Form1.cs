@@ -58,7 +58,7 @@ namespace Simulator
                 listViewTemp.Columns.Add("Timestamp", 110);
                 listViewTemp.Columns.Add("Temperature", 75);
                 temperature = Math.Round(randomDouble(-30, 50), 3);
-                item.SubItems.Add(temperature.ToString() + " °C");
+                item.SubItems.Add(temperature.ToString() + " C");
                 timerTemp.Interval = int.Parse(comboBoxTemp.Text) * 1000;
                 timerTemp.Tick += new EventHandler(tempTick);
                 timerTemp.Start();
@@ -167,28 +167,174 @@ namespace Simulator
 
             foreach(ListView l in lists)
             {
-                List<HistoryData> historyData = new List<HistoryData>();
-                foreach (ListViewItem item in l.Items)
+                if (l.Name.Equals("listViewEnergy"))
                 {
-                    historyData.Add(new HistoryData()
+                    List<HistoryData> historyBatteryV = new List<HistoryData>();
+                    List<HistoryData> historySolarV = new List<HistoryData>();
+                    List<HistoryData> historyNodeV = new List<HistoryData>();
+                    List<HistoryData> historyBatteryC = new List<HistoryData>();
+                    List<HistoryData> historySolarC = new List<HistoryData>();
+                    List<HistoryData> historyNodeC = new List<HistoryData>();
+
+                    foreach (ColumnHeader c in l.Columns)
                     {
-                        timestamp = DateTime.Parse(item.SubItems[0].Text.ToString()),
-                        data = item.SubItems[1].Text.ToString()
-                    });
+                        foreach (ListViewItem item in l.Items)
+                        {
+                            if(c.Text == "Battery Voltage")
+                            {
+                                string file = "battery_voltage.json";
+                                string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
+                                using (StreamReader r = new StreamReader(path))
+                                {
+                                    string batteryV = r.ReadToEnd();
+                                    List<HistoryData> temp = JsonConvert.DeserializeObject<List<HistoryData>>(batteryV);
+                                    if (temp != null)
+                                        historyBatteryV = temp;
+                                }
+                                int index = c.Index;
+                                historyBatteryV.Add(new HistoryData()
+                                {
+                                    timestamp = DateTime.Parse(item.SubItems[0].Text.ToString()),
+                                    data = item.SubItems[index].Text.ToString()
+                                });
+                                string json = JsonConvert.SerializeObject(historyBatteryV.ToArray());;
+                                File.WriteAllText(path, json);
+                            }
+                            else if (c.Text == "Solar Panel Voltage")
+                            {
+                                string file = "solarpanel_voltage.json";
+                                string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
+                                using (StreamReader r = new StreamReader(path))
+                                {
+                                    string solarV = r.ReadToEnd();
+                                    List<HistoryData> temp = JsonConvert.DeserializeObject<List<HistoryData>>(solarV);
+                                    if(temp != null)
+                                        historySolarV = temp;
+                                }
+                                int index = c.Index;
+                                historySolarV.Add(new HistoryData()
+                                {
+                                    timestamp = DateTime.Parse(item.SubItems[0].Text.ToString()),
+                                    data = item.SubItems[index].Text.ToString()
+                                });
+                                string json = JsonConvert.SerializeObject(historySolarV.ToArray()); ;
+                                File.WriteAllText(path, json);
+                            }
+                            else if (c.Text == "Node Voltage")
+                            {
+                                string file = "node_voltage.json";
+                                string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
+                                using (StreamReader r = new StreamReader(path))
+                                {
+                                    string nodeV = r.ReadToEnd();
+                                    List<HistoryData> temp = JsonConvert.DeserializeObject<List<HistoryData>>(nodeV);
+                                    if (temp != null)
+                                        historyNodeV = temp;
+                                }
+                                int index = c.Index;
+                                historyNodeV.Add(new HistoryData()
+                                {
+                                    timestamp = DateTime.Parse(item.SubItems[0].Text.ToString()),
+                                    data = item.SubItems[index].Text.ToString()
+                                });
+                                string json = JsonConvert.SerializeObject(historyNodeV.ToArray()); ;
+                                File.WriteAllText(path, json);
+                            }
+                            else if (c.Text == "Battery Current")
+                            {
+                                string file = "battery_current.json";
+                                string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
+                                using (StreamReader r = new StreamReader(path))
+                                {
+                                    string batteryC = r.ReadToEnd();
+                                    List<HistoryData> temp = JsonConvert.DeserializeObject<List<HistoryData>>(batteryC);
+                                    if (temp != null)
+                                        historyBatteryC = temp;
+                                }
+                                int index = c.Index;
+                                historyBatteryC.Add(new HistoryData()
+                                {
+                                    timestamp = DateTime.Parse(item.SubItems[0].Text.ToString()),
+                                    data = item.SubItems[index].Text.ToString()
+                                });
+                                string json = JsonConvert.SerializeObject(historyBatteryC.ToArray()); ;
+                                File.WriteAllText(path, json);
+                            }
+                            else if (c.Text == "Solar Panel Current")
+                            {
+                                string file = "solarpanel_current.json";
+                                string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
+                                using (StreamReader r = new StreamReader(path))
+                                {
+                                    string solarC = r.ReadToEnd();
+                                    List<HistoryData> temp = JsonConvert.DeserializeObject<List<HistoryData>>(solarC);
+                                    if (temp != null)
+                                        historySolarC = temp;
+                                }
+                                int index = c.Index;
+                                historySolarC.Add(new HistoryData()
+                                {
+                                    timestamp = DateTime.Parse(item.SubItems[0].Text.ToString()),
+                                    data = item.SubItems[index].Text.ToString()
+                                });
+                                string json = JsonConvert.SerializeObject(historySolarC.ToArray()); ;
+                                File.WriteAllText(path, json);
+                            }
+                            else if (c.Text == "Node Current")
+                            {
+                                string file = "node_current.json";
+                                string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
+                                using (StreamReader r = new StreamReader(path))
+                                {
+                                    string nodeC = r.ReadToEnd();
+                                    List<HistoryData> temp = JsonConvert.DeserializeObject<List<HistoryData>>(nodeC);
+                                    if (temp != null)
+                                        historyNodeC = temp;
+                                }
+                                int index = c.Index;
+                                historyNodeC.Add(new HistoryData()
+                                {
+                                    timestamp = DateTime.Parse(item.SubItems[0].Text.ToString()),
+                                    data = item.SubItems[index].Text.ToString()
+                                });
+                                string json = JsonConvert.SerializeObject(historyNodeC.ToArray()); ;
+                                File.WriteAllText(path, json);
+                            }                           
+                        }
+                    }
                 }
-                string json = JsonConvert.SerializeObject(historyData.ToArray());
-                string file = null;
-                switch(l.Name)
+                else
                 {
-                    case "listViewTemp": file = "temperature.json"; break;
-                    case "listViewHum": file = "humidity.json"; break;
-                    case "listViewPress": file = "pressure.json"; break;
+                    List<HistoryData> historyData = new List<HistoryData>();
+                    string file = null;
+                    switch (l.Name)
+                    {
+                        case "listViewTemp": file = "temperature.json"; break;
+                        case "listViewHum": file = "humidity.json"; break;
+                        case "listViewPress": file = "pressure.json"; break;
+                    }
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
+                    using (StreamReader r = new StreamReader(path))
+                    {
+                        string nodeC = r.ReadToEnd();
+                        List<HistoryData> temp = JsonConvert.DeserializeObject<List<HistoryData>>(nodeC);
+                        if (temp != null)
+                            historyData = temp;
+                    }
+                    foreach (ListViewItem item in l.Items)
+                    {
+                        historyData.Add(new HistoryData()
+                        {
+                            timestamp = DateTime.Parse(item.SubItems[0].Text.ToString()),
+                            data = item.SubItems[1].Text.ToString()
+                        });
+
+                    }
+                    string json = JsonConvert.SerializeObject(historyData.ToArray());
+                    File.WriteAllText(path, json);
                 }
-                    
-                string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
-                File.WriteAllText(path, json);
+                
             }
-            
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
@@ -208,7 +354,7 @@ namespace Simulator
                 temporary = temperature + Math.Round(randomDouble(-1, 1), 3);
             }
             temperature = temporary;
-            item.SubItems.Add(temperature.ToString() + " °C");
+            item.SubItems.Add(temperature.ToString() + " C");
             listViewTemp.Items.Insert(0, item);
         }
 
