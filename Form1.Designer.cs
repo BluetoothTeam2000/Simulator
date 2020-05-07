@@ -64,10 +64,10 @@
             // buttonStart
             // 
             this.buttonStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonStart.Location = new System.Drawing.Point(12, 303);
-            this.buttonStart.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonStart.Location = new System.Drawing.Point(9, 246);
+            this.buttonStart.Margin = new System.Windows.Forms.Padding(2);
             this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(434, 58);
+            this.buttonStart.Size = new System.Drawing.Size(326, 47);
             this.buttonStart.TabIndex = 0;
             this.buttonStart.Text = "START SIMULATION";
             this.buttonStart.UseVisualStyleBackColor = true;
@@ -78,9 +78,10 @@
             this.label6.BackColor = System.Drawing.SystemColors.HighlightText;
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label6.Location = new System.Drawing.Point(15, 12);
+            this.label6.Location = new System.Drawing.Point(11, 10);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(897, 43);
+            this.label6.Size = new System.Drawing.Size(673, 35);
             this.label6.TabIndex = 14;
             this.label6.Text = "Variable selection";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -89,10 +90,10 @@
             // 
             this.checkTemp.AutoSize = true;
             this.checkTemp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkTemp.Location = new System.Drawing.Point(13, 69);
-            this.checkTemp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkTemp.Location = new System.Drawing.Point(10, 56);
+            this.checkTemp.Margin = new System.Windows.Forms.Padding(2);
             this.checkTemp.Name = "checkTemp";
-            this.checkTemp.Size = new System.Drawing.Size(141, 28);
+            this.checkTemp.Size = new System.Drawing.Size(111, 22);
             this.checkTemp.TabIndex = 15;
             this.checkTemp.Text = "Temperature";
             this.checkTemp.UseVisualStyleBackColor = true;
@@ -101,10 +102,10 @@
             // 
             this.checkCis.AutoSize = true;
             this.checkCis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.checkCis.Location = new System.Drawing.Point(712, 70);
-            this.checkCis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkCis.Location = new System.Drawing.Point(534, 57);
+            this.checkCis.Margin = new System.Windows.Forms.Padding(2);
             this.checkCis.Name = "checkCis";
-            this.checkCis.Size = new System.Drawing.Size(107, 28);
+            this.checkCis.Size = new System.Drawing.Size(87, 22);
             this.checkCis.TabIndex = 16;
             this.checkCis.Text = "Pressure";
             this.checkCis.UseVisualStyleBackColor = true;
@@ -113,10 +114,10 @@
             // 
             this.checkWilg.AutoSize = true;
             this.checkWilg.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.checkWilg.Location = new System.Drawing.Point(357, 70);
-            this.checkWilg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkWilg.Location = new System.Drawing.Point(268, 57);
+            this.checkWilg.Margin = new System.Windows.Forms.Padding(2);
             this.checkWilg.Name = "checkWilg";
-            this.checkWilg.Size = new System.Drawing.Size(105, 28);
+            this.checkWilg.Size = new System.Drawing.Size(84, 22);
             this.checkWilg.TabIndex = 17;
             this.checkWilg.Text = "Humidity";
             this.checkWilg.UseVisualStyleBackColor = true;
@@ -125,10 +126,10 @@
             // 
             this.checkNATB.AutoSize = true;
             this.checkNATB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.checkNATB.Location = new System.Drawing.Point(13, 143);
-            this.checkNATB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkNATB.Location = new System.Drawing.Point(10, 116);
+            this.checkNATB.Margin = new System.Windows.Forms.Padding(2);
             this.checkNATB.Name = "checkNATB";
-            this.checkNATB.Size = new System.Drawing.Size(155, 28);
+            this.checkNATB.Size = new System.Drawing.Size(126, 22);
             this.checkNATB.TabIndex = 18;
             this.checkNATB.Text = "Battery Current";
             this.checkNATB.UseVisualStyleBackColor = true;
@@ -137,10 +138,10 @@
             // 
             this.checkNAPB.AutoSize = true;
             this.checkNAPB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkNAPB.Location = new System.Drawing.Point(13, 107);
-            this.checkNAPB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkNAPB.Location = new System.Drawing.Point(10, 87);
+            this.checkNAPB.Margin = new System.Windows.Forms.Padding(2);
             this.checkNAPB.Name = "checkNAPB";
-            this.checkNAPB.Size = new System.Drawing.Size(157, 28);
+            this.checkNAPB.Size = new System.Drawing.Size(126, 22);
             this.checkNAPB.TabIndex = 19;
             this.checkNAPB.Text = "Battery Voltage";
             this.checkNAPB.UseVisualStyleBackColor = true;
@@ -149,10 +150,10 @@
             // 
             this.checkNATSOL.AutoSize = true;
             this.checkNATSOL.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.checkNATSOL.Location = new System.Drawing.Point(357, 143);
-            this.checkNATSOL.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkNATSOL.Location = new System.Drawing.Point(268, 116);
+            this.checkNATSOL.Margin = new System.Windows.Forms.Padding(2);
             this.checkNATSOL.Name = "checkNATSOL";
-            this.checkNATSOL.Size = new System.Drawing.Size(195, 28);
+            this.checkNATSOL.Size = new System.Drawing.Size(156, 22);
             this.checkNATSOL.TabIndex = 20;
             this.checkNATSOL.Text = "Solar Panel Current";
             this.checkNATSOL.UseVisualStyleBackColor = true;
@@ -161,10 +162,10 @@
             // 
             this.checkNAPSOL.AutoSize = true;
             this.checkNAPSOL.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.checkNAPSOL.Location = new System.Drawing.Point(357, 107);
-            this.checkNAPSOL.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkNAPSOL.Location = new System.Drawing.Point(268, 87);
+            this.checkNAPSOL.Margin = new System.Windows.Forms.Padding(2);
             this.checkNAPSOL.Name = "checkNAPSOL";
-            this.checkNAPSOL.Size = new System.Drawing.Size(197, 28);
+            this.checkNAPSOL.Size = new System.Drawing.Size(156, 22);
             this.checkNAPSOL.TabIndex = 21;
             this.checkNAPSOL.Text = "Solar Panel Voltage";
             this.checkNAPSOL.UseVisualStyleBackColor = true;
@@ -173,10 +174,10 @@
             // 
             this.checkNAPW.AutoSize = true;
             this.checkNAPW.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.checkNAPW.Location = new System.Drawing.Point(712, 107);
-            this.checkNAPW.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkNAPW.Location = new System.Drawing.Point(534, 87);
+            this.checkNAPW.Margin = new System.Windows.Forms.Padding(2);
             this.checkNAPW.Name = "checkNAPW";
-            this.checkNAPW.Size = new System.Drawing.Size(148, 28);
+            this.checkNAPW.Size = new System.Drawing.Size(116, 22);
             this.checkNAPW.TabIndex = 22;
             this.checkNAPW.Text = "Node Voltage";
             this.checkNAPW.UseVisualStyleBackColor = true;
@@ -185,10 +186,10 @@
             // 
             this.checkNATW.AutoSize = true;
             this.checkNATW.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F);
-            this.checkNATW.Location = new System.Drawing.Point(712, 143);
-            this.checkNATW.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkNATW.Location = new System.Drawing.Point(534, 116);
+            this.checkNATW.Margin = new System.Windows.Forms.Padding(2);
             this.checkNATW.Name = "checkNATW";
-            this.checkNATW.Size = new System.Drawing.Size(146, 28);
+            this.checkNATW.Size = new System.Drawing.Size(116, 22);
             this.checkNATW.TabIndex = 23;
             this.checkNATW.Text = "Node Current";
             this.checkNATW.UseVisualStyleBackColor = true;
@@ -196,10 +197,10 @@
             // buttonBack
             // 
             this.buttonBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonBack.Location = new System.Drawing.Point(15, 768);
-            this.buttonBack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonBack.Location = new System.Drawing.Point(11, 624);
+            this.buttonBack.Margin = new System.Windows.Forms.Padding(2);
             this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(896, 46);
+            this.buttonBack.Size = new System.Drawing.Size(672, 37);
             this.buttonBack.TabIndex = 24;
             this.buttonBack.Text = "BACK";
             this.buttonBack.UseVisualStyleBackColor = true;
@@ -208,10 +209,10 @@
             // buttonStop
             // 
             this.buttonStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonStop.Location = new System.Drawing.Point(477, 303);
-            this.buttonStop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonStop.Location = new System.Drawing.Point(358, 246);
+            this.buttonStop.Margin = new System.Windows.Forms.Padding(2);
             this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(434, 58);
+            this.buttonStop.Size = new System.Drawing.Size(326, 47);
             this.buttonStop.TabIndex = 25;
             this.buttonStop.Text = "STOP SIMULATION";
             this.buttonStop.UseVisualStyleBackColor = true;
@@ -220,10 +221,9 @@
             // listViewTemp
             // 
             this.listViewTemp.HideSelection = false;
-            this.listViewTemp.Location = new System.Drawing.Point(15, 482);
-            this.listViewTemp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listViewTemp.Location = new System.Drawing.Point(11, 392);
             this.listViewTemp.Name = "listViewTemp";
-            this.listViewTemp.Size = new System.Drawing.Size(284, 110);
+            this.listViewTemp.Size = new System.Drawing.Size(214, 90);
             this.listViewTemp.TabIndex = 26;
             this.listViewTemp.UseCompatibleStateImageBehavior = false;
             this.listViewTemp.View = System.Windows.Forms.View.Details;
@@ -231,10 +231,9 @@
             // listViewHum
             // 
             this.listViewHum.HideSelection = false;
-            this.listViewHum.Location = new System.Drawing.Point(324, 482);
-            this.listViewHum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listViewHum.Location = new System.Drawing.Point(243, 392);
             this.listViewHum.Name = "listViewHum";
-            this.listViewHum.Size = new System.Drawing.Size(284, 110);
+            this.listViewHum.Size = new System.Drawing.Size(214, 90);
             this.listViewHum.TabIndex = 27;
             this.listViewHum.UseCompatibleStateImageBehavior = false;
             this.listViewHum.View = System.Windows.Forms.View.Details;
@@ -242,10 +241,9 @@
             // listViewPress
             // 
             this.listViewPress.HideSelection = false;
-            this.listViewPress.Location = new System.Drawing.Point(628, 482);
-            this.listViewPress.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listViewPress.Location = new System.Drawing.Point(471, 392);
             this.listViewPress.Name = "listViewPress";
-            this.listViewPress.Size = new System.Drawing.Size(283, 110);
+            this.listViewPress.Size = new System.Drawing.Size(213, 90);
             this.listViewPress.TabIndex = 28;
             this.listViewPress.UseCompatibleStateImageBehavior = false;
             this.listViewPress.View = System.Windows.Forms.View.Details;
@@ -253,10 +251,9 @@
             // listViewEnergy
             // 
             this.listViewEnergy.HideSelection = false;
-            this.listViewEnergy.Location = new System.Drawing.Point(15, 635);
-            this.listViewEnergy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listViewEnergy.Location = new System.Drawing.Point(11, 516);
             this.listViewEnergy.Name = "listViewEnergy";
-            this.listViewEnergy.Size = new System.Drawing.Size(897, 102);
+            this.listViewEnergy.Size = new System.Drawing.Size(674, 84);
             this.listViewEnergy.TabIndex = 29;
             this.listViewEnergy.UseCompatibleStateImageBehavior = false;
             this.listViewEnergy.View = System.Windows.Forms.View.Details;
@@ -265,9 +262,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
-            this.label1.Location = new System.Drawing.Point(12, 458);
+            this.label1.Location = new System.Drawing.Point(9, 372);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 20);
+            this.label1.Size = new System.Drawing.Size(94, 17);
             this.label1.TabIndex = 30;
             this.label1.Text = "Temperature:";
             // 
@@ -275,9 +273,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
-            this.label2.Location = new System.Drawing.Point(320, 458);
+            this.label2.Location = new System.Drawing.Point(240, 372);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 20);
+            this.label2.Size = new System.Drawing.Size(66, 17);
             this.label2.TabIndex = 31;
             this.label2.Text = "Humidity:";
             // 
@@ -285,9 +284,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
-            this.label3.Location = new System.Drawing.Point(624, 458);
+            this.label3.Location = new System.Drawing.Point(468, 372);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 20);
+            this.label3.Size = new System.Drawing.Size(69, 17);
             this.label3.TabIndex = 32;
             this.label3.Text = "Pressure:";
             // 
@@ -295,9 +295,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
-            this.label4.Location = new System.Drawing.Point(12, 611);
+            this.label4.Location = new System.Drawing.Point(9, 496);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 20);
+            this.label4.Size = new System.Drawing.Size(57, 17);
             this.label4.TabIndex = 33;
             this.label4.Text = "Energy:";
             // 
@@ -311,10 +312,9 @@
             "3",
             "5",
             "10"});
-            this.comboBoxTemp.Location = new System.Drawing.Point(12, 272);
-            this.comboBoxTemp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxTemp.Location = new System.Drawing.Point(9, 221);
             this.comboBoxTemp.Name = "comboBoxTemp";
-            this.comboBoxTemp.Size = new System.Drawing.Size(204, 24);
+            this.comboBoxTemp.Size = new System.Drawing.Size(154, 21);
             this.comboBoxTemp.TabIndex = 34;
             // 
             // comboBoxHum
@@ -327,10 +327,9 @@
             "3",
             "5",
             "10"});
-            this.comboBoxHum.Location = new System.Drawing.Point(242, 273);
-            this.comboBoxHum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxHum.Location = new System.Drawing.Point(182, 222);
             this.comboBoxHum.Name = "comboBoxHum";
-            this.comboBoxHum.Size = new System.Drawing.Size(204, 24);
+            this.comboBoxHum.Size = new System.Drawing.Size(154, 21);
             this.comboBoxHum.TabIndex = 35;
             // 
             // comboBoxPress
@@ -343,10 +342,9 @@
             "3",
             "5",
             "10"});
-            this.comboBoxPress.Location = new System.Drawing.Point(477, 273);
-            this.comboBoxPress.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxPress.Location = new System.Drawing.Point(358, 222);
             this.comboBoxPress.Name = "comboBoxPress";
-            this.comboBoxPress.Size = new System.Drawing.Size(204, 24);
+            this.comboBoxPress.Size = new System.Drawing.Size(154, 21);
             this.comboBoxPress.TabIndex = 36;
             // 
             // comboBoxEnergy
@@ -359,19 +357,19 @@
             "3",
             "5",
             "10"});
-            this.comboBoxEnergy.Location = new System.Drawing.Point(707, 273);
-            this.comboBoxEnergy.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxEnergy.Location = new System.Drawing.Point(530, 222);
             this.comboBoxEnergy.Name = "comboBoxEnergy";
-            this.comboBoxEnergy.Size = new System.Drawing.Size(204, 24);
+            this.comboBoxEnergy.Size = new System.Drawing.Size(154, 21);
             this.comboBoxEnergy.TabIndex = 37;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
-            this.label5.Location = new System.Drawing.Point(9, 249);
+            this.label5.Location = new System.Drawing.Point(7, 202);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(109, 20);
+            this.label5.Size = new System.Drawing.Size(94, 17);
             this.label5.TabIndex = 38;
             this.label5.Text = "Temperature:";
             // 
@@ -379,9 +377,10 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
-            this.label7.Location = new System.Drawing.Point(238, 249);
+            this.label7.Location = new System.Drawing.Point(178, 202);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 20);
+            this.label7.Size = new System.Drawing.Size(66, 17);
             this.label7.TabIndex = 39;
             this.label7.Text = "Humidity:";
             // 
@@ -389,9 +388,10 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
-            this.label8.Location = new System.Drawing.Point(473, 249);
+            this.label8.Location = new System.Drawing.Point(355, 202);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(82, 20);
+            this.label8.Size = new System.Drawing.Size(69, 17);
             this.label8.TabIndex = 40;
             this.label8.Text = "Pressure:";
             // 
@@ -399,9 +399,10 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.8F);
-            this.label9.Location = new System.Drawing.Point(703, 249);
+            this.label9.Location = new System.Drawing.Point(527, 202);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(66, 20);
+            this.label9.Size = new System.Drawing.Size(57, 17);
             this.label9.TabIndex = 41;
             this.label9.Text = "Energy:";
             // 
@@ -410,9 +411,10 @@
             this.label10.BackColor = System.Drawing.SystemColors.HighlightText;
             this.label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label10.Location = new System.Drawing.Point(12, 393);
+            this.label10.Location = new System.Drawing.Point(9, 319);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(900, 43);
+            this.label10.Size = new System.Drawing.Size(676, 35);
             this.label10.TabIndex = 43;
             this.label10.Text = "Results";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -422,18 +424,19 @@
             this.label11.BackColor = System.Drawing.SystemColors.HighlightText;
             this.label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label11.Location = new System.Drawing.Point(13, 187);
+            this.label11.Location = new System.Drawing.Point(10, 152);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(899, 43);
+            this.label11.Size = new System.Drawing.Size(675, 35);
             this.label11.TabIndex = 44;
             this.label11.Text = "Interval [s]";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Simulator
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(924, 832);
+            this.ClientSize = new System.Drawing.Size(693, 676);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -466,7 +469,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.buttonStart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Simulator";
             this.Text = "Simulator2000";
             this.ResumeLayout(false);
