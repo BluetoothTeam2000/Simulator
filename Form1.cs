@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Simulator
 {
@@ -157,6 +159,36 @@ namespace Simulator
                     c.Enabled = true;
             }
             buttonStart.Enabled = true;
+
+            List<ListView> lists = new List<ListView>
+            {
+                listViewTemp, listViewHum, listViewPress, listViewEnergy
+            };
+
+            foreach(ListView l in lists)
+            {
+                List<HistoryData> historyData = new List<HistoryData>();
+                foreach (ListViewItem item in l.Items)
+                {
+                    historyData.Add(new HistoryData()
+                    {
+                        timestamp = DateTime.Parse(item.SubItems[0].Text.ToString()),
+                        data = item.SubItems[1].Text.ToString()
+                    });
+                }
+                string json = JsonConvert.SerializeObject(historyData.ToArray());
+                string file = null;
+                switch(l.Name)
+                {
+                    case "listViewTemp": file = "temperature.json"; break;
+                    case "listViewHum": file = "humidity.json"; break;
+                    case "listViewPress": file = "pressure.json"; break;
+                }
+                    
+                string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
+                File.WriteAllText(path, json);
+            }
+            
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
@@ -286,4 +318,5 @@ namespace Simulator
             return random.NextDouble() * (max - min) + min;
         }
     }
+
 }
