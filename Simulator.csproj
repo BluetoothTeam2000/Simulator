@@ -83,6 +83,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HistoryData.cs" />
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +107,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="history_data\battery_current.json" />
+    <None Include="history_data\battery_voltage.json" />
+    <None Include="history_data\humidity.json" />
+    <None Include="history_data\node_current.json" />
+    <None Include="history_data\node_voltage.json" />
+    <None Include="history_data\pressure.json" />
+    <None Include="history_data\solarpanel_current.json" />
+    <None Include="history_data\solarpanel_voltage.json" />
+    <None Include="history_data\temperature.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
