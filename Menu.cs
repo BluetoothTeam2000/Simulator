@@ -1,5 +1,6 @@
 ﻿using InTheHand.Net.Sockets;
 using InTheHand.Net.Bluetooth;
+using InTheHand.Net;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace Simulator
     {
         BluetoothClient client;
         BluetoothDeviceInfo[] devices;
+        BluetoothDeviceInfo selectedDevice;
+
         public Menu()
         {
             InitializeComponent();
@@ -41,7 +44,7 @@ namespace Simulator
 
         private void btnPairSSP_Click_1(object sender, EventArgs e)
         {
-            BluetoothDeviceInfo selectedDevice = devices[listBoxDevices.SelectedIndex];
+            selectedDevice = devices[listBoxDevices.SelectedIndex];
             if (MessageBox.Show(String.Format("Would you like to attempt to pair with {0}?", selectedDevice.DeviceName), "Pair Device", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Task t = new Task(PairBluetoothTask);
@@ -51,7 +54,7 @@ namespace Simulator
 
         private void PairBluetoothTask()
         {
-            BluetoothDeviceInfo selectedDevice = devices[listBoxDevices.SelectedIndex];
+            //selectedDevice = devices[listBoxDevices.SelectedIndex];
             if (BluetoothSecurity.PairRequest(selectedDevice.DeviceAddress, null))
             {
                 MessageBox.Show("We paired!");
@@ -106,6 +109,18 @@ namespace Simulator
                     MessageBox.Show("Event handled in some unknown way");
                     break;
 
+            }
+        }
+
+        BluetoothListener listener = new BluetoothListener(BluetoothRadio.PrimaryRadio.LocalAddress, BluetoothService.SerialPort);
+        listener.Start();
+        listener.BeginAcceptBluetoothClient(new AsyncCallback(AcceptConnection), listener);
+
+        void AcceptConnection(IAsyncResult result)
+        {
+            if (result.IsCompleted)
+            {
+                BluetoothClient remoteDevice = ((BluetoothListener)result.AsyncState).EndAcceptBluetoothClient(result);
             }
         }
 
