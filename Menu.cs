@@ -35,84 +35,79 @@ namespace Simulator
                 MessageBox.Show("Unable to detect any bluetooth devices");
             }
         }
-        public static void Main()
-        {
-            
-            Menu c = new Menu();
 
-            EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(c.handleAuthRequests);
-            BluetoothWin32Authentication authenticator = new BluetoothWin32Authentication(authHandler);
+       static EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(handleAuthRequests);
+       BluetoothWin32Authentication authenticator = new BluetoothWin32Authentication(authHandler);
+
+        private void btnPairSSP_Click_1(object sender, EventArgs e)
+        {
+            BluetoothDeviceInfo selectedDevice = devices[listBoxDevices.SelectedIndex];
+            if (MessageBox.Show(String.Format("Would you like to attempt to pair with {0}?", selectedDevice.DeviceName), "Pair Device", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Task t = new Task(PairBluetoothTask);
+                t.Start();
+            }
+        }
+
+        private void PairBluetoothTask()
+        {
+            BluetoothDeviceInfo selectedDevice = devices[listBoxDevices.SelectedIndex];
+            if (BluetoothSecurity.PairRequest(selectedDevice.DeviceAddress, null))
+            {
+                MessageBox.Show("We paired!");
+            }
+            else
+            {
+                MessageBox.Show("Failed to pair!");
+            }
 
         }
-            private void btnPairSSP_Click_1(object sender, EventArgs e)
+
+        private static void handleAuthRequests(object sender, BluetoothWin32AuthenticationEventArgs e)
+        {
+            switch (e.AuthenticationMethod)
             {
-                BluetoothDeviceInfo selectedDevice = devices[listBoxDevices.SelectedIndex];
-                if (MessageBox.Show(String.Format("Would you like to attempt to pair with {0}?", selectedDevice.DeviceName), "Pair Device", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    Task t = new Task(PairBluetoothTask);
-                    t.Start();
-                }
-            }
+                case BluetoothAuthenticationMethod.Legacy:
+                    MessageBox.Show("Legacy Authentication");
+                    break;
 
-            private void PairBluetoothTask()
-            {
-                BluetoothDeviceInfo selectedDevice = devices[listBoxDevices.SelectedIndex];
-                if (BluetoothSecurity.PairRequest(selectedDevice.DeviceAddress, null))
-                {
-                    MessageBox.Show("We paired!");
-                }
-                else
-                {
-                    MessageBox.Show("Failed to pair!");
-                }
+                case BluetoothAuthenticationMethod.OutOfBand:
+                    MessageBox.Show("Out of Band Authentication");
+                    break;
 
-            }
-
-            private void handleAuthRequests(object sender, BluetoothWin32AuthenticationEventArgs e)
-            {
-                switch (e.AuthenticationMethod)
-                {
-                    case BluetoothAuthenticationMethod.Legacy:
-                        MessageBox.Show("Legacy Authentication");
-                        break;
-
-                    case BluetoothAuthenticationMethod.OutOfBand:
-                        MessageBox.Show("Out of Band Authentication");
-                        break;
-
-                    case BluetoothAuthenticationMethod.NumericComparison:
-                        if (e.JustWorksNumericComparison == true)
+                case BluetoothAuthenticationMethod.NumericComparison:
+                    if (e.JustWorksNumericComparison == true)
+                    {
+                        MessageBox.Show("Just Works Numeric Comparison");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Show User Numeric Comparison");
+                        if (MessageBox.Show(e.NumberOrPasskeyAsString, "Pair Device", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
-                            MessageBox.Show("Just Works Numeric Comparison");
+                            e.Confirm = true;
                         }
                         else
                         {
-                            MessageBox.Show("Show User Numeric Comparison");
-                            if (MessageBox.Show(e.NumberOrPasskeyAsString, "Pair Device", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                            {
-                                e.Confirm = true;
-                            }
-                            else
-                            {
-                                e.Confirm = false;
-                            }
+                            e.Confirm = false;
                         }
-                        break;
+                    }
+                    break;
 
-                    case BluetoothAuthenticationMethod.PasskeyNotification:
-                        MessageBox.Show("Passkey Notification");
-                        break;
+                case BluetoothAuthenticationMethod.PasskeyNotification:
+                    MessageBox.Show("Passkey Notification");
+                    break;
 
-                    case BluetoothAuthenticationMethod.Passkey:
-                        MessageBox.Show("Passkey");
-                        break;
+                case BluetoothAuthenticationMethod.Passkey:
+                    MessageBox.Show("Passkey");
+                    break;
 
-                    default:
-                        MessageBox.Show("Event handled in some unknown way");
-                        break;
+                default:
+                    MessageBox.Show("Event handled in some unknown way");
+                    break;
 
-                }
             }
+        }
 
         private void buttonSTART_Click(object sender, EventArgs e)
         {
