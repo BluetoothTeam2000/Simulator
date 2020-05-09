@@ -21,6 +21,10 @@ namespace Simulator
 
         double temperature, humidity, pressure, battery_voltage, solar_panel_voltage, node_voltage, battery_current, solar_panel_current, node_current;
 
+        private void BluetoothClientConnectCallback(IAsyncResult ar)
+        {
+            //Have no problem with this
+        }
         public Simulator()
         {
             InitializeComponent();
