@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
 using InTheHand.Net.Sockets;
-using System.Text;
 
 namespace Simulator
 {
@@ -14,10 +19,6 @@ namespace Simulator
         Timer timerHum = new Timer();
         Timer timerPress = new Timer();
         Timer timerEnergy = new Timer();
-        System.Threading.Thread connectserver;
-        Stream mstream;
-        BluetoothClient client;
-        BluetoothListener bluelisten;
 
         double temperature, humidity, pressure, battery_voltage, solar_panel_voltage, node_voltage, battery_current, solar_panel_current, node_current;
 
@@ -28,65 +29,6 @@ namespace Simulator
             comboBoxHum.SelectedIndex = 0;
             comboBoxPress.SelectedIndex = 0;
             comboBoxEnergy.SelectedIndex = 0;
-
-            if (serverstart)
-            {
-                updateui("server already started");
-            }
-            connectasserver();
-        }
-
-        private void connectasserver()
-        {
-            connectserver = new System.Threading.Thread(new System.Threading.ThreadStart(serverconnectedthread));
-            connectserver.Start();
-        }
-
-        Guid muuid = new Guid();
-        bool serverstart = false;
-
-        public void serverconnectedthread()
-        {
-            serverstart = true;
-            updateui("waiting for connections of clients\n");
-            bluelisten = new BluetoothListener(muuid);
-            bluelisten.Start();
-            client = new BluetoothClient();
-            client = bluelisten.AcceptBluetoothClient();
-            updateui("client has connected\n");
-            mstream = client.GetStream();
-
-            while (true)
-            {
-                try
-                {
-                    byte[] received = new byte[1024];
-                    mstream.Read(received, 0, received.Length);
-
-                    updateui("received: " + Encoding.ASCII.GetString(received));
-                    byte[] sent = Encoding.ASCII.GetBytes(" hello world\n");
-                    mstream.Write(sent, 0, sent.Length);
-                }
-                catch (IOException except)
-                {
-                    updateui("client has been disconnected\n");
-                    connectserver.Abort();
-                    serverstart = false;
-                    client.Close();
-                    mstream.Flush();
-                    break;
-                }
-            }
-        }
-
-        private void updateui(string mess)
-        {
-            Func<int> del = delegate ()
-            {
-                Console.WriteLine(mess);
-                return 0;
-            };
-            Invoke(del);
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
