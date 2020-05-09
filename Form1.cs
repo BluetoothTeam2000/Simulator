@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
+using InTheHand.Net.Sockets;
 
 namespace Simulator
 {
@@ -464,5 +465,4 @@ namespace Simulator
             return random.NextDouble() * (max - min) + min;
         }
     }
-
 }
