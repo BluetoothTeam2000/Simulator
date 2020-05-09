@@ -36,12 +36,13 @@ namespace Simulator
             }
         }
 
-       // EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(handleAuthRequests);
-       // BluetoothWin32Authentication authenticator = new BluetoothWin32Authentication(authHandler);
+        EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(handleAuthRequests);
+        BluetoothWin32Authentication authenticator = new BluetoothWin32Authentication(authHandler);
+        BluetoothDeviceInfo selectedDevice = null;
 
         private void btnPairSSP_Click_1(object sender, EventArgs e)
         {
-            BluetoothDeviceInfo selectedDevice = devices[listBoxDevices.SelectedIndex];
+            selectedDevice = devices[listBoxDevices.SelectedIndex];
             if (MessageBox.Show(String.Format("Would you like to attempt to pair with {0}?", selectedDevice.DeviceName), "Pair Device", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Task t = new Task(PairBluetoothTask);
@@ -51,7 +52,6 @@ namespace Simulator
 
         private void PairBluetoothTask()
         {
-            BluetoothDeviceInfo selectedDevice = devices[listBoxDevices.SelectedIndex];
             if (BluetoothSecurity.PairRequest(selectedDevice.DeviceAddress, null))
             {
                 MessageBox.Show("We paired!");
