@@ -1,5 +1,6 @@
 ﻿using InTheHand.Net.Sockets;
 using InTheHand.Net.Bluetooth;
+using InTheHand.Net;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace Simulator
     {
         BluetoothClient client;
         BluetoothDeviceInfo[] devices;
+        BluetoothDeviceInfo selectedDevice;
+
         public Menu()
         {
             InitializeComponent();
@@ -36,9 +39,8 @@ namespace Simulator
             }
         }
 
-        EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(handleAuthRequests);
-        BluetoothWin32Authentication authenticator = new BluetoothWin32Authentication(authHandler);
-        BluetoothDeviceInfo selectedDevice = null;
+       static EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(handleAuthRequests);
+       BluetoothWin32Authentication authenticator = new BluetoothWin32Authentication(authHandler);
 
         private void btnPairSSP_Click_1(object sender, EventArgs e)
         {
@@ -52,6 +54,7 @@ namespace Simulator
 
         private void PairBluetoothTask()
         {
+            //selectedDevice = devices[listBoxDevices.SelectedIndex];
             if (BluetoothSecurity.PairRequest(selectedDevice.DeviceAddress, null))
             {
                 MessageBox.Show("We paired!");
@@ -63,7 +66,7 @@ namespace Simulator
 
         }
 
-        private void handleAuthRequests(object sender, BluetoothWin32AuthenticationEventArgs e)
+        private static void handleAuthRequests(object sender, BluetoothWin32AuthenticationEventArgs e)
         {
             switch (e.AuthenticationMethod)
             {
@@ -109,8 +112,17 @@ namespace Simulator
             }
         }
 
+        BluetoothListener listener = new BluetoothListener(BluetoothRadio.PrimaryRadio.LocalAddress, BluetoothService.SerialPort);
+        listener.Start();
+        listener.BeginAcceptBluetoothClient(new AsyncCallback(AcceptConnection), listener);
 
-
+        void AcceptConnection(IAsyncResult result)
+        {
+            if (result.IsCompleted)
+            {
+                BluetoothClient remoteDevice = ((BluetoothListener)result.AsyncState).EndAcceptBluetoothClient(result);
+            }
+        }
 
         private void buttonSTART_Click(object sender, EventArgs e)
         {
