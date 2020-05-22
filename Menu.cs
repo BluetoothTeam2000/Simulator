@@ -38,11 +38,11 @@ namespace Simulator
                 MessageBox.Show("Unable to detect any bluetooth devices");
             }
 
-            listen();
+            Listen();
         }
 
-        static EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(handleAuthRequests);
-        BluetoothWin32Authentication authenticator = new BluetoothWin32Authentication(authHandler);
+       static EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(handleAuthRequests);
+       BluetoothWin32Authentication authenticator = new BluetoothWin32Authentication(authHandler);
 
         private void btnPairSSP_Click_1(object sender, EventArgs e)
         {
@@ -113,19 +113,22 @@ namespace Simulator
 
             }
         }
-        
-        void listen()
+
+        void Listen()
         {
             BluetoothListener listener = new BluetoothListener(BluetoothRadio.PrimaryRadio.LocalAddress, BluetoothService.SerialPort);
             listener.Start();
+            Console.WriteLine("Listener dziala!");
             listener.BeginAcceptBluetoothClient(new AsyncCallback(AcceptConnection), listener);
         }
 
         void AcceptConnection(IAsyncResult result)
         {
+            Console.WriteLine("AKCEPTOWANO CONNECTION!");
             if (result.IsCompleted)
             {
                 BluetoothClient remoteDevice = ((BluetoothListener)result.AsyncState).EndAcceptBluetoothClient(result);
+                Console.WriteLine("ZWYCIESTWO!");
             }
         }
 
