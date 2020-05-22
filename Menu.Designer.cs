@@ -89,6 +89,7 @@
             this.btnPairSSP.TabIndex = 5;
             this.btnPairSSP.Text = "button1";
             this.btnPairSSP.UseVisualStyleBackColor = true;
+            //this.btnPairSSP.Click += new System.EventHandler(this.btnPairSSP_Click_1);
             // 
             // listBoxDevices
             // 
