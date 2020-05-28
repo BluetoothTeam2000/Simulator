@@ -27,8 +27,8 @@ namespace Simulator
             Console.WriteLine("Paired: "+isPaired);
         }
 
-        static EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(handleAuthRequests);
-        BluetoothWin32Authentication authenticator = new BluetoothWin32Authentication(authHandler);
+        //static EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(handleAuthRequests);
+        //BluetoothWin32Authentication authenticator = new BluetoothWin32Authentication(authHandler);
 
         private void btnPairSSP_Click_1(object sender, EventArgs e)
         {
@@ -163,6 +163,7 @@ namespace Simulator
         {
             client = new BluetoothClient();
             devices = client.DiscoverDevices();
+            listBoxDevices.Items.Clear();
             if (devices.Length > 0)
             {
                 labelInfo.Text = "Scan successful";
