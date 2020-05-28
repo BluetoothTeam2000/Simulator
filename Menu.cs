@@ -17,55 +17,59 @@ namespace Simulator
     {
         BluetoothClient client;
         BluetoothDeviceInfo[] devices;
-        BluetoothDeviceInfo selectedDevice;
+        static BluetoothDeviceInfo selectedDevice;
+        static bool isPaired = false;
 
         public Menu()
         {
             InitializeComponent();
-
-            client = new BluetoothClient();
-            devices = client.DiscoverDevices();
-            if (devices.Length > 0)
-            {
-                MessageBox.Show("OK");
-                foreach (var device in devices)
-                {
-                    listBoxDevices.Items.Add(device.DeviceName);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Unable to detect any bluetooth devices");
-            }
-
-            Listen();
+            labelInfo.Text = "";
+            Console.WriteLine("Paired: "+isPaired);
         }
 
-       static EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(handleAuthRequests);
-       BluetoothWin32Authentication authenticator = new BluetoothWin32Authentication(authHandler);
+        static EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(handleAuthRequests);
+        BluetoothWin32Authentication authenticator = new BluetoothWin32Authentication(authHandler);
 
         private void btnPairSSP_Click_1(object sender, EventArgs e)
         {
-            selectedDevice = devices[listBoxDevices.SelectedIndex];
-            if (MessageBox.Show(String.Format("Would you like to attempt to pair with {0}?", selectedDevice.DeviceName), "Pair Device", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (listBoxDevices.SelectedItem == null)
             {
-                Task t = new Task(PairBluetoothTask);
-                t.Start();
+                labelInfo.Text = "Choose device first!";
             }
+            else
+            {
+                selectedDevice = devices[listBoxDevices.SelectedIndex];
+                if (MessageBox.Show(String.Format("Would you like to attempt to pair with {0}?", selectedDevice.DeviceName), "Pair Device", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Task t = new Task(PairBluetoothTask);
+                    t.Start();
+                }
+            }          
         }
 
         private void PairBluetoothTask()
         {
-            //selectedDevice = devices[listBoxDevices.SelectedIndex];
-            if (BluetoothSecurity.PairRequest(selectedDevice.DeviceAddress, null))
+            this.Invoke((MethodInvoker)(() => selectedDevice = devices[listBoxDevices.SelectedIndex]));
+            if(isPaired)
             {
-                MessageBox.Show("We paired!");
+                if(MessageBox.Show("Device is already paired! Do you want to unpair?", "Pairing...", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    BluetoothSecurity.RemoveDevice(selectedDevice.DeviceAddress);
+                    isPaired = false;
+                }
             }
             else
             {
-                MessageBox.Show("Failed to pair!");
+                if (BluetoothSecurity.PairRequest(selectedDevice.DeviceAddress, null))
+                {
+                    isPaired = true;
+                    MessageBox.Show("We paired!");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to pair!");
+                }
             }
-
         }
 
         private static void handleAuthRequests(object sender, BluetoothWin32AuthenticationEventArgs e)
@@ -134,14 +138,45 @@ namespace Simulator
 
         private void buttonSTART_Click(object sender, EventArgs e)
         {
-            Simulator openSimulator = new Simulator();
-            openSimulator.Show();
-            Hide();
+            if(isPaired == false)
+            {
+                MessageBox.Show("Connect your device first!");
+            }
+            else
+            {
+                Simulator openSimulator = new Simulator();
+                openSimulator.Show();
+                Hide();
+            }
         }
 
         private void buttonEXIT_Click(object sender, EventArgs e)
         {
+            if(isPaired)
+            {
+                BluetoothSecurity.RemoveDevice(selectedDevice.DeviceAddress);
+            }
             Application.Exit();
+        }
+
+        private void btnScan_Click(object sender, EventArgs e)
+        {
+            client = new BluetoothClient();
+            devices = client.DiscoverDevices();
+            if (devices.Length > 0)
+            {
+                labelInfo.Text = "Scan successful";
+                foreach (var device in devices)
+                {
+                    listBoxDevices.Items.Add(device.DeviceName);
+                }
+            }
+            else
+            {
+                labelInfo.Text = "Unable to detect any bluetooth devices";
+            }
+
+            Listen();
         }
     }
 }
