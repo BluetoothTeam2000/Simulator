@@ -64,6 +64,7 @@ namespace Simulator
                 {
                     isPaired = true;
                     MessageBox.Show("We paired!");
+                    Simulator.BTDevice = new BluetoothDeviceInfo(selectedDevice.DeviceAddress);
                 }
                 else
                 {
