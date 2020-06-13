@@ -29,7 +29,7 @@ namespace Simulator
         private static BluetoothClient BC = new BluetoothClient(EP);
         private static NetworkStream stream = null;
         public static BluetoothDeviceInfo BTDevice = null;
-
+        
 
         public Simulator()
         {
@@ -39,7 +39,33 @@ namespace Simulator
             comboBoxPress.SelectedIndex = 0;
             comboBoxEnergy.SelectedIndex = 0;
 
-            BC.BeginConnect(BTDevice.DeviceAddress, BluetoothService.SerialPort, new AsyncCallback(Connect), BTDevice);
+            // Console.WriteLine(BTDevice.DeviceAddress);
+            //BC.SetPin("0000");
+            //BC.BeginConnect(BTDevice.DeviceAddress, BluetoothService.SerialPort, new AsyncCallback(Connect), BTDevice);
+
+            if (BluetoothSecurity.PairRequest(BTDevice.DeviceAddress, "0000"))
+            {
+                Console.WriteLine("PairRequest: OK");
+
+                if (BTDevice.Authenticated)
+                {
+                    Console.WriteLine("Authenticated: OK");
+
+                    BC.SetPin("0000");
+
+                    BC.BeginConnect(BTDevice.DeviceAddress, BluetoothService.SerialPort, new AsyncCallback(Connect), BTDevice);
+                }
+                else
+                {
+                    Console.WriteLine("Authenticated: No");
+                }
+            }
+            else
+            {
+                Console.WriteLine("PairRequest: No");
+            }
+
+            Console.ReadLine();
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
