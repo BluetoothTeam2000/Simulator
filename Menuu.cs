@@ -13,14 +13,14 @@ using System.Windows.Forms;
 
 namespace Simulator
 {
-    public partial class Menu : Form
+    public partial class Menuu : Form
     {
         BluetoothClient client;
         BluetoothDeviceInfo[] devices;
-        static BluetoothDeviceInfo selectedDevice;
+        public static BluetoothDeviceInfo selectedDevice ;
         static bool isPaired = false;
 
-        public Menu()
+        public Menuu()
         {
             InitializeComponent();
             labelInfo.Text = "";

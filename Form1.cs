@@ -25,10 +25,10 @@ namespace Simulator
 
         double temperature, humidity, pressure, battery_voltage, solar_panel_voltage, node_voltage, battery_current, solar_panel_current, node_current;
 
-        private static BluetoothEndPoint EP = new BluetoothEndPoint(BluetoothRadio.PrimaryRadio.LocalAddress, BluetoothService.BluetoothBase);
-        private static BluetoothClient BC = new BluetoothClient(EP);
+        //private static BluetoothEndPoint EP = new BluetoothEndPoint(BluetoothRadio.PrimaryRadio.LocalAddress, BluetoothService.BluetoothBase);
+        private static BluetoothClient BC = new BluetoothClient();
         private static NetworkStream stream = null;
-        public static BluetoothDeviceInfo BTDevice = null;
+        public static BluetoothDeviceInfo BTDevice;
         
 
         public Simulator()
@@ -38,6 +38,11 @@ namespace Simulator
             comboBoxHum.SelectedIndex = 0;
             comboBoxPress.SelectedIndex = 0;
             comboBoxEnergy.SelectedIndex = 0;
+
+            BTDevice = Menuu.selectedDevice;
+            BluetoothEndPoint EP = new BluetoothEndPoint(BTDevice.DeviceAddress, BluetoothService.SerialPort);
+            Console.WriteLine("BTDevice.DeviceAddress: " +BTDevice.DeviceAddress);
+            BC.Connect(EP);
 
             // Console.WriteLine(BTDevice.DeviceAddress);
             //BC.SetPin("0000");
@@ -377,7 +382,7 @@ namespace Simulator
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
-            Menu openMenu = new Menu();
+            Menuu openMenu = new Menuu();
             openMenu.Show();
             Close();
         }

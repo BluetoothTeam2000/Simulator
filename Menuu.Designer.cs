@@ -1,6 +1,6 @@
 ﻿namespace Simulator
 {
-    partial class Menu
+    partial class Menuu
     {
         /// <summary>
         /// Required designer variable.
