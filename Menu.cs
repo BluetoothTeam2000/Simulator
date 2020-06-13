@@ -114,7 +114,6 @@ namespace Simulator
                 default:
                     MessageBox.Show("Event handled in some unknown way");
                     break;
-
             }
         }
 
