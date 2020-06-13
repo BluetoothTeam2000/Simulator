@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
 using InTheHand.Net.Sockets;
+using InTheHand.Net;
+using InTheHand.Net.Bluetooth;
+using System.Net.Sockets;
 
 namespace Simulator
 {
@@ -22,6 +25,12 @@ namespace Simulator
 
         double temperature, humidity, pressure, battery_voltage, solar_panel_voltage, node_voltage, battery_current, solar_panel_current, node_current;
 
+        private static BluetoothEndPoint EP = new BluetoothEndPoint(BluetoothRadio.PrimaryRadio.LocalAddress, BluetoothService.BluetoothBase);
+        private static BluetoothClient BC = new BluetoothClient(EP);
+        private static NetworkStream stream = null;
+        public static BluetoothDeviceInfo BTDevice = null;
+
+
         public Simulator()
         {
             InitializeComponent();
@@ -29,6 +38,8 @@ namespace Simulator
             comboBoxHum.SelectedIndex = 0;
             comboBoxPress.SelectedIndex = 0;
             comboBoxEnergy.SelectedIndex = 0;
+
+            BC.BeginConnect(BTDevice.DeviceAddress, BluetoothService.SerialPort, new AsyncCallback(Connect), BTDevice);
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -166,7 +177,7 @@ namespace Simulator
                 listViewTemp, listViewHum, listViewPress, listViewEnergy
             };
 
-            foreach(ListView l in lists)
+            foreach  (ListView l in lists)
             {
                 if (l.Name.Equals("listViewEnergy"))
                 {
@@ -181,7 +192,7 @@ namespace Simulator
                     {
                         foreach (ListViewItem item in l.Items)
                         {
-                            if(c.Text == "Battery Voltage")
+                            if  (c.Text == "Battery Voltage")
                             {
                                 string file = "battery_voltage.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
@@ -198,7 +209,7 @@ namespace Simulator
                                     timestamp = DateTime.Parse(item.SubItems[0].Text.ToString()),
                                     data = item.SubItems[index].Text.ToString()
                                 });
-                                string json = JsonConvert.SerializeObject(historyBatteryV.ToArray());;
+                                string json = JsonConvert.SerializeObject(historyBatteryV.ToArray());  ;
                                 File.WriteAllText(path, json);
                             }
                             else if (c.Text == "Solar Panel Voltage")
@@ -209,7 +220,7 @@ namespace Simulator
                                 {
                                     string solarV = r.ReadToEnd();
                                     List<HistoryData> temp = JsonConvert.DeserializeObject<List<HistoryData>>(solarV);
-                                    if(temp != null)
+                                    if  (temp != null)
                                         historySolarV = temp;
                                 }
                                 int index = c.Index;
@@ -300,7 +311,7 @@ namespace Simulator
                                 });
                                 string json = JsonConvert.SerializeObject(historyNodeC.ToArray()); ;
                                 File.WriteAllText(path, json);
-                            }                           
+                            }
                         }
                     }
                 }
@@ -334,7 +345,7 @@ namespace Simulator
                     string json = JsonConvert.SerializeObject(historyData.ToArray());
                     File.WriteAllText(path, json);
                 }
-                
+
             }
         }
 
@@ -376,7 +387,7 @@ namespace Simulator
         private void pressTick(object sender, EventArgs e)
         {
             ListViewItem item = new ListViewItem(DateTime.Now.ToString());
-         
+
             double temporary = pressure + Math.Round(randomDouble(-1, 1), 3);
             while (temporary < 980 || temporary > 1020)
             {
@@ -463,6 +474,38 @@ namespace Simulator
         {
             Random random = new Random();
             return random.NextDouble() * (max - min) + min;
+        }
+
+        private static void Connect(IAsyncResult result)
+        {
+            if (result.IsCompleted)
+            {
+                Console.WriteLine(BC.Connected);
+                stream = BC.GetStream();
+
+                if (stream.CanRead)
+                {
+                    byte[] myReadBuffer = new byte[1024];
+                    StringBuilder myCompleteMessage = new StringBuilder();
+                    int numberOfBytesRead = 0;
+
+                    do
+                    {
+                        numberOfBytesRead = stream.Read(myReadBuffer, 0, myReadBuffer.Length);
+
+                        myCompleteMessage.AppendFormat("{0}", Encoding.ASCII.GetString(myReadBuffer, 0, numberOfBytesRead));
+                    }
+                    while (stream.DataAvailable);
+
+                    Console.WriteLine("You received the following message: " + myCompleteMessage);
+                }
+                else
+                {
+                    Console.WriteLine("Sorry. You cannot read from this NetworkStream.");
+                }
+
+                Console.ReadLine();
+            }
         }
     }
 }
