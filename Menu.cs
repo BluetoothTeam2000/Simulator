@@ -60,7 +60,7 @@ namespace Simulator
             }
             else
             {
-                if (BluetoothSecurity.PairRequest(selectedDevice.DeviceAddress, null))
+                if (BluetoothSecurity.PairRequest(selectedDevice.DeviceAddress, "0000"))
                 {
                     isPaired = true;
                     MessageBox.Show("We paired!");
