@@ -10,6 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using System.IO;
+using System.Net.Sockets;
 
 namespace Simulator
 {
@@ -19,12 +22,15 @@ namespace Simulator
         BluetoothDeviceInfo[] devices;
         static BluetoothDeviceInfo selectedDevice;
         static bool isPaired = false;
+        BluetoothClient remoteDevice;
+        NetworkStream stream;
+        bool connection = true;
 
-        public Menu()
-        {
+        public Menu()     {
             InitializeComponent();
             labelInfo.Text = "";
             Console.WriteLine("Paired: "+isPaired);
+            Console.WriteLine(BluetoothRadio.PrimaryRadio.LocalAddress);
         }
 
         static EventHandler<BluetoothWin32AuthenticationEventArgs> authHandler = new EventHandler<BluetoothWin32AuthenticationEventArgs>(handleAuthRequests);
@@ -64,7 +70,7 @@ namespace Simulator
                 {
                     isPaired = true;
                     MessageBox.Show("We paired!");
-                    Simulator.BTDevice = new BluetoothDeviceInfo(selectedDevice.DeviceAddress);
+                    //Simulator.BTDevice = new BluetoothDeviceInfo(selectedDevice.DeviceAddress);
                 }
                 else
                 {
@@ -120,6 +126,7 @@ namespace Simulator
 
         void Listen()
         {
+            //BluetoothListener listener = new BluetoothListener(BluetoothAddress.Parse("38:BA:F8:28:32:9F"), BluetoothService.SerialPort);
             BluetoothListener listener = new BluetoothListener(BluetoothRadio.PrimaryRadio.LocalAddress, BluetoothService.SerialPort);
             listener.Start();
             Console.WriteLine("Listener dziala!");
@@ -131,37 +138,123 @@ namespace Simulator
             Console.WriteLine("AKCEPTOWANO CONNECTION!");
             if (result.IsCompleted)
             {
-                BluetoothClient remoteDevice = ((BluetoothListener)result.AsyncState).EndAcceptBluetoothClient(result);
+                remoteDevice = ((BluetoothListener)result.AsyncState).EndAcceptBluetoothClient(result);
+                //remoteDevice.Connect(BluetoothAddress.Parse("94:21:97:60:07:C0"), BluetoothService.SerialPort);
+                stream = remoteDevice.GetStream();
+
+                if (stream.CanRead)
+                {
+                    byte[] myReadBuffer = new byte[1024];
+                    StringBuilder myCompleteMessage = new StringBuilder();
+                    int numberOfBytesRead = 0;
+
+                    do
+                    {
+                        numberOfBytesRead = stream.Read(myReadBuffer, 0, myReadBuffer.Length);
+
+                        //for (int i = 0; i < numberOfBytesRead; i++)
+                        //  myCompleteMessage.AppendFormat("0x{0:X2} ", myReadBuffer);
+                        myCompleteMessage.AppendFormat("{0}", Encoding.ASCII.GetString(myReadBuffer, 0, numberOfBytesRead));
+                    }
+                    while (stream.DataAvailable);
+                    
+                    Command command = JsonConvert.DeserializeObject<Command>(myCompleteMessage.ToString());
+                    foreach(string temp in command.val)
+                    {
+                        Console.WriteLine(temp);
+                    }
+
+                    Console.WriteLine("You received the following message: " + myCompleteMessage);
+                    sendFiles(command);
+                }
+                else
+                {
+                    Console.WriteLine("Sorry. You cannot read from this NetworkStream.");
+                }
+
                 Console.WriteLine("ZWYCIESTWO!");
-            }
+            }            
+        }
+
+        private void sendFiles(Command command)
+        {
+            List<string> val = command.val;
+            string file = val[1]+".json";
+            string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
+            DateTime timestampStart = DateTime.Parse(val[2]);
+            DateTime timestampStop = DateTime.Parse(val[3]);
+            using (StreamReader r = new StreamReader(path))
+            {
+                string content = r.ReadToEnd();
+                List<HistoryData> temp = JsonConvert.DeserializeObject<List<HistoryData>>(content);
+                if (temp != null)
+                {
+                    Response response = new Response();
+                    response.command = "get response";
+                    response.values = new List<HistoryData>();
+                    foreach(HistoryData historyData in temp)
+                    {
+                        // DateTime timestampFile = DateTime.Parse(historyData.timestamp);
+                        if (DateTime.Compare(timestampStart, historyData.timestamp) <= 0 && DateTime.Compare(timestampStop, historyData.timestamp) >= 0)
+                        {                         
+                            response.values.Add(historyData);
+                        }
+                    }
+                    string json = JsonConvert.SerializeObject(response);
+
+                    Console.WriteLine("Wynik "+json);
+
+                    byte[] bytes = Encoding.ASCII.GetBytes(json);
+
+                    //using (var bluetoothClient = new BluetoothClient())
+                   // {
+                        try
+                        {
+
+                            //var endpoint = new BluetoothEndPoint(BluetoothAddress.Parse("38:BA:F8:28:32:9F"), new Guid("{646171EA-EA18-4CCF-8D7A-C57D46991775}"));
+                           // bluetoothClient.Connect(BluetoothAddress.Parse("38:BA:F8:28:32:9F"), new Guid("{646171EA-EA18-4CCF-8D7A-C57D46991775}"));
+
+                            //var bluetoothStream = bluetoothClient.GetStream();
+
+                            if (remoteDevice.Connected && stream != null)
+                            {
+                                stream.Write(bytes, 0, bytes.Length);
+                                stream.Flush();
+                                stream.Close();
+                                remoteDevice.Close();
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            // TODO: handle exception
+                        }
+                    //}
+                }                  
+            }            
         }
 
         private void buttonSTART_Click(object sender, EventArgs e)
         {
-            if(isPaired == false)
-            {
-                MessageBox.Show("Connect your device first!");
-            }
-            else
-            {
-                Simulator openSimulator = new Simulator();
-                openSimulator.Show();
-                Hide();
-            }
+            connection = false;
+            Simulator openSimulator = new Simulator();
+            openSimulator.Show();
+            Hide();           
         }
 
         private void buttonEXIT_Click(object sender, EventArgs e)
         {
             if(isPaired)
             {
+                connection = false;
                 BluetoothSecurity.RemoveDevice(selectedDevice.DeviceAddress);
             }
             Application.Exit();
         }
 
         private void btnScan_Click(object sender, EventArgs e)
-        {
-            client = new BluetoothClient();
+        {         
+            client = new BluetoothClient(); 
             devices = client.DiscoverDevices();
             listBoxDevices.Items.Clear();
             if (devices.Length > 0)
