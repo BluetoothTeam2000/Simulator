@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
 using InTheHand.Net.Sockets;
+using InTheHand.Net;
+using InTheHand.Net.Bluetooth;
+using System.Net.Sockets;
 
 namespace Simulator
 {
@@ -22,6 +25,13 @@ namespace Simulator
 
         double temperature, humidity, pressure, battery_voltage, solar_panel_voltage, node_voltage, battery_current, solar_panel_current, node_current;
 
+       // private static BluetoothEndPoint EP = new BluetoothEndPoint(BluetoothAddress.Parse("38:BA:F8:28:32:9F"), BluetoothService.BluetoothBase);
+        //private static BluetoothClient BC = new BluetoothClient(EP);
+        //private static NetworkStream stream = null;
+       // public static BluetoothDeviceInfo BTDevice = null;
+       // private static BluetoothDeviceInfo BTDevice = new BluetoothDeviceInfo(BluetoothAddress.Parse("94:21:97:60:07:C0"));
+
+
         public Simulator()
         {
             InitializeComponent();
@@ -29,6 +39,34 @@ namespace Simulator
             comboBoxHum.SelectedIndex = 0;
             comboBoxPress.SelectedIndex = 0;
             comboBoxEnergy.SelectedIndex = 0;
+
+            //Console.WriteLine(BTDevice.DeviceAddress);
+            //BC.SetPin("0000");
+            //BC.BeginConnect(BTDevice.DeviceAddress, BluetoothService.SerialPort, new AsyncCallback(Connect), BTDevice);
+
+            /* if (BluetoothSecurity.PairRequest(BTDevice.DeviceAddress, "0000"))
+             {
+                 Console.WriteLine("PairRequest: OK");
+
+                 if (BTDevice.Authenticated)
+                 {
+                     Console.WriteLine("Authenticated: OK");
+
+                     BC.SetPin("0000");
+
+                     BC.BeginConnect(BTDevice.DeviceAddress, BluetoothService.SerialPort, new AsyncCallback(Connect), BTDevice);
+                 }
+                 else
+                 {
+                     Console.WriteLine("Authenticated: No");
+                 }
+             }
+             else
+             {
+                 Console.WriteLine("PairRequest: No");
+             }
+
+             Console.ReadLine(); */
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -166,7 +204,7 @@ namespace Simulator
                 listViewTemp, listViewHum, listViewPress, listViewEnergy
             };
 
-            foreach(ListView l in lists)
+            foreach  (ListView l in lists)
             {
                 if (l.Name.Equals("listViewEnergy"))
                 {
@@ -181,9 +219,9 @@ namespace Simulator
                     {
                         foreach (ListViewItem item in l.Items)
                         {
-                            if(c.Text == "Battery Voltage")
+                            if  (c.Text == "Battery Voltage")
                             {
-                                string file = "battery_voltage.json";
+                                string file = "BAT_V.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                                 using (StreamReader r = new StreamReader(path))
                                 {
@@ -198,18 +236,18 @@ namespace Simulator
                                     timestamp = DateTime.Parse(item.SubItems[0].Text.ToString()),
                                     data = item.SubItems[index].Text.ToString()
                                 });
-                                string json = JsonConvert.SerializeObject(historyBatteryV.ToArray());;
+                                string json = JsonConvert.SerializeObject(historyBatteryV.ToArray());  ;
                                 File.WriteAllText(path, json);
                             }
                             else if (c.Text == "Solar Panel Voltage")
                             {
-                                string file = "solarpanel_voltage.json";
+                                string file = "SOLAR_V.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                                 using (StreamReader r = new StreamReader(path))
                                 {
                                     string solarV = r.ReadToEnd();
                                     List<HistoryData> temp = JsonConvert.DeserializeObject<List<HistoryData>>(solarV);
-                                    if(temp != null)
+                                    if  (temp != null)
                                         historySolarV = temp;
                                 }
                                 int index = c.Index;
@@ -223,7 +261,7 @@ namespace Simulator
                             }
                             else if (c.Text == "Node Voltage")
                             {
-                                string file = "node_voltage.json";
+                                string file = "NODE_V.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                                 using (StreamReader r = new StreamReader(path))
                                 {
@@ -243,7 +281,7 @@ namespace Simulator
                             }
                             else if (c.Text == "Battery Current")
                             {
-                                string file = "battery_current.json";
+                                string file = "BAT_I.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                                 using (StreamReader r = new StreamReader(path))
                                 {
@@ -263,7 +301,7 @@ namespace Simulator
                             }
                             else if (c.Text == "Solar Panel Current")
                             {
-                                string file = "solarpanel_current.json";
+                                string file = "SOLAR_I.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                                 using (StreamReader r = new StreamReader(path))
                                 {
@@ -283,7 +321,7 @@ namespace Simulator
                             }
                             else if (c.Text == "Node Current")
                             {
-                                string file = "node_current.json";
+                                string file = "NODE_I.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                                 using (StreamReader r = new StreamReader(path))
                                 {
@@ -300,7 +338,7 @@ namespace Simulator
                                 });
                                 string json = JsonConvert.SerializeObject(historyNodeC.ToArray()); ;
                                 File.WriteAllText(path, json);
-                            }                           
+                            }
                         }
                     }
                 }
@@ -310,9 +348,9 @@ namespace Simulator
                     string file = null;
                     switch (l.Name)
                     {
-                        case "listViewTemp": file = "temperature.json"; break;
-                        case "listViewHum": file = "humidity.json"; break;
-                        case "listViewPress": file = "pressure.json"; break;
+                        case "listViewTemp": file = "TEMP.json"; break;
+                        case "listViewHum": file = "HUM.json"; break;
+                        case "listViewPress": file = "PRESS.json"; break;
                     }
                     string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                     using (StreamReader r = new StreamReader(path))
@@ -334,7 +372,7 @@ namespace Simulator
                     string json = JsonConvert.SerializeObject(historyData.ToArray());
                     File.WriteAllText(path, json);
                 }
-                
+
             }
         }
 
@@ -376,7 +414,7 @@ namespace Simulator
         private void pressTick(object sender, EventArgs e)
         {
             ListViewItem item = new ListViewItem(DateTime.Now.ToString());
-         
+
             double temporary = pressure + Math.Round(randomDouble(-1, 1), 3);
             while (temporary < 980 || temporary > 1020)
             {
@@ -464,5 +502,37 @@ namespace Simulator
             Random random = new Random();
             return random.NextDouble() * (max - min) + min;
         }
+
+      /*  private static void Connect(IAsyncResult result)
+        {
+            if (result.IsCompleted)
+            {
+                Console.WriteLine(BC.Connected);
+                stream = BC.GetStream();
+
+                if (stream.CanRead)
+                {
+                    byte[] myReadBuffer = new byte[1024];
+                    StringBuilder myCompleteMessage = new StringBuilder();
+                    int numberOfBytesRead = 0;
+
+                    do
+                    {
+                        numberOfBytesRead = stream.Read(myReadBuffer, 0, myReadBuffer.Length);
+
+                        myCompleteMessage.AppendFormat("{0}", Encoding.ASCII.GetString(myReadBuffer, 0, numberOfBytesRead));
+                    }
+                    while (stream.DataAvailable);
+
+                    Console.WriteLine("You received the following message: " + myCompleteMessage);
+                }
+                else
+                {
+                    Console.WriteLine("Sorry. You cannot read from this NetworkStream.");
+                }
+
+                Console.ReadLine();
+            }
+        } */
     }
 }
