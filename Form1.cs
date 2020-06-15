@@ -25,11 +25,12 @@ namespace Simulator
 
         double temperature, humidity, pressure, battery_voltage, solar_panel_voltage, node_voltage, battery_current, solar_panel_current, node_current;
 
-        //private static BluetoothEndPoint EP = new BluetoothEndPoint(BluetoothRadio.PrimaryRadio.LocalAddress, BluetoothService.BluetoothBase);
-        private static BluetoothClient BC = new BluetoothClient();
-        private static NetworkStream stream = null;
-        public static BluetoothDeviceInfo BTDevice;
-        
+       // private static BluetoothEndPoint EP = new BluetoothEndPoint(BluetoothAddress.Parse("38:BA:F8:28:32:9F"), BluetoothService.BluetoothBase);
+        //private static BluetoothClient BC = new BluetoothClient(EP);
+        //private static NetworkStream stream = null;
+       // public static BluetoothDeviceInfo BTDevice = null;
+       // private static BluetoothDeviceInfo BTDevice = new BluetoothDeviceInfo(BluetoothAddress.Parse("94:21:97:60:07:C0"));
+
 
         public Simulator()
         {
@@ -39,38 +40,33 @@ namespace Simulator
             comboBoxPress.SelectedIndex = 0;
             comboBoxEnergy.SelectedIndex = 0;
 
-            BTDevice = Menuu.selectedDevice;
-            BluetoothEndPoint EP = new BluetoothEndPoint(BTDevice.DeviceAddress, BluetoothService.SerialPort);
-            Console.WriteLine("BTDevice.DeviceAddress: " +BTDevice.DeviceAddress);
-            BC.Connect(EP);
-
-            // Console.WriteLine(BTDevice.DeviceAddress);
+            //Console.WriteLine(BTDevice.DeviceAddress);
             //BC.SetPin("0000");
             //BC.BeginConnect(BTDevice.DeviceAddress, BluetoothService.SerialPort, new AsyncCallback(Connect), BTDevice);
 
-            if (BluetoothSecurity.PairRequest(BTDevice.DeviceAddress, "0000"))
-            {
-                Console.WriteLine("PairRequest: OK");
+            /* if (BluetoothSecurity.PairRequest(BTDevice.DeviceAddress, "0000"))
+             {
+                 Console.WriteLine("PairRequest: OK");
 
-                if (BTDevice.Authenticated)
-                {
-                    Console.WriteLine("Authenticated: OK");
+                 if (BTDevice.Authenticated)
+                 {
+                     Console.WriteLine("Authenticated: OK");
 
-                    BC.SetPin("0000");
+                     BC.SetPin("0000");
 
-                    BC.BeginConnect(BTDevice.DeviceAddress, BluetoothService.SerialPort, new AsyncCallback(Connect), BTDevice);
-                }
-                else
-                {
-                    Console.WriteLine("Authenticated: No");
-                }
-            }
-            else
-            {
-                Console.WriteLine("PairRequest: No");
-            }
+                     BC.BeginConnect(BTDevice.DeviceAddress, BluetoothService.SerialPort, new AsyncCallback(Connect), BTDevice);
+                 }
+                 else
+                 {
+                     Console.WriteLine("Authenticated: No");
+                 }
+             }
+             else
+             {
+                 Console.WriteLine("PairRequest: No");
+             }
 
-            Console.ReadLine();
+             Console.ReadLine(); */
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -225,7 +221,7 @@ namespace Simulator
                         {
                             if  (c.Text == "Battery Voltage")
                             {
-                                string file = "battery_voltage.json";
+                                string file = "BAT_V.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                                 using (StreamReader r = new StreamReader(path))
                                 {
@@ -245,7 +241,7 @@ namespace Simulator
                             }
                             else if (c.Text == "Solar Panel Voltage")
                             {
-                                string file = "solarpanel_voltage.json";
+                                string file = "SOLAR_V.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                                 using (StreamReader r = new StreamReader(path))
                                 {
@@ -265,7 +261,7 @@ namespace Simulator
                             }
                             else if (c.Text == "Node Voltage")
                             {
-                                string file = "node_voltage.json";
+                                string file = "NODE_V.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                                 using (StreamReader r = new StreamReader(path))
                                 {
@@ -285,7 +281,7 @@ namespace Simulator
                             }
                             else if (c.Text == "Battery Current")
                             {
-                                string file = "battery_current.json";
+                                string file = "BAT_I.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                                 using (StreamReader r = new StreamReader(path))
                                 {
@@ -305,7 +301,7 @@ namespace Simulator
                             }
                             else if (c.Text == "Solar Panel Current")
                             {
-                                string file = "solarpanel_current.json";
+                                string file = "SOLAR_I.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                                 using (StreamReader r = new StreamReader(path))
                                 {
@@ -325,7 +321,7 @@ namespace Simulator
                             }
                             else if (c.Text == "Node Current")
                             {
-                                string file = "node_current.json";
+                                string file = "NODE_I.json";
                                 string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                                 using (StreamReader r = new StreamReader(path))
                                 {
@@ -352,9 +348,9 @@ namespace Simulator
                     string file = null;
                     switch (l.Name)
                     {
-                        case "listViewTemp": file = "temperature.json"; break;
-                        case "listViewHum": file = "humidity.json"; break;
-                        case "listViewPress": file = "pressure.json"; break;
+                        case "listViewTemp": file = "TEMP.json"; break;
+                        case "listViewHum": file = "HUM.json"; break;
+                        case "listViewPress": file = "PRESS.json"; break;
                     }
                     string path = Path.Combine(Directory.GetCurrentDirectory(), @"..\..\history_data\", file);
                     using (StreamReader r = new StreamReader(path))
@@ -382,7 +378,7 @@ namespace Simulator
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
-            Menuu openMenu = new Menuu();
+            Menu openMenu = new Menu();
             openMenu.Show();
             Close();
         }
@@ -507,7 +503,7 @@ namespace Simulator
             return random.NextDouble() * (max - min) + min;
         }
 
-        private static void Connect(IAsyncResult result)
+      /*  private static void Connect(IAsyncResult result)
         {
             if (result.IsCompleted)
             {
@@ -537,6 +533,6 @@ namespace Simulator
 
                 Console.ReadLine();
             }
-        }
+        } */
     }
 }
